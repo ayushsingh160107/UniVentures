@@ -1,0 +1,64 @@
+/* ===== SUBMIT PAGE ===== */
+.submit-page {
+  min-height: 100vh;
+}
+
+.submit-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.submit-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  border: 1px solid var(--border);
+  animation: fadeIn 0.4s ease;
+}
+
+.submit-title {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.submit-subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 36px;
+}
+
+.submit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.char-count {
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .submit-card {
+    padding: 24px;
+  }
+}
