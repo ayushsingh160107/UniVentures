@@ -416,11 +416,11 @@ export const SAMPLE_REQUESTS = [
 // Sample activity feed
 // ========================================
 export const SAMPLE_ACTIVITY = [
-  { id: 'act-1', type: 'vote', text: 'Someone upvoted EduBot AI', time: '2 hours ago', icon: '🔼' },
-  { id: 'act-2', type: 'comment', text: 'New comment on MediFind', time: '5 hours ago', icon: '💬' },
-  { id: 'act-3', type: 'save', text: 'Your pitch was saved by 3 people', time: '1 day ago', icon: '🔖' },
-  { id: 'act-4', type: 'team', text: 'Karan Jha joined as Marketer', time: '2 days ago', icon: '🤝' },
-  { id: 'act-5', type: 'trending', text: 'CodeMentor AI is trending! 🔥', time: '3 days ago', icon: '📈' },
+  { id: 'act-1', type: 'vote', text: 'Someone upvoted EduBot AI', time: '2 hours ago', icon: 'vote' },
+  { id: 'act-2', type: 'comment', text: 'New comment on MediFind', time: '5 hours ago', icon: 'comment' },
+  { id: 'act-3', type: 'save', text: 'Your pitch was saved by 3 people', time: '1 day ago', icon: 'save' },
+  { id: 'act-4', type: 'team', text: 'Karan Jha joined as Marketer', time: '2 days ago', icon: 'team' },
+  { id: 'act-5', type: 'trending', text: 'CodeMentor AI is trending', time: '3 days ago', icon: 'trending' },
 ];
 
 // ========================================
