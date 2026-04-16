@@ -1,46 +1,33 @@
 // ========================================
-// App.jsx - Main component with all routes
-// This is the "root" of our application
+// App.jsx — Root component with routes
 // ========================================
 
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { initSeedData } from './data/seedData';
 import { useEffect } from 'react';
+import { initData } from './data/mockStartups';
 
-// Import all pages
 import Home from './pages/Home';
 import Explore from './pages/Explore';
-import StartupDetail from './pages/StartupDetail';
-import Submit from './pages/Submit';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import PitchDetail from './pages/PitchDetail';
+import SubmitPitch from './pages/SubmitPitch';
 import Profile from './pages/Profile';
-import './App.css';
+import Dashboard from './pages/Dashboard';
 
-function App() {
-  // On first load, populate localStorage with sample data
+export default function App() {
   useEffect(() => {
-    initSeedData();
+    initData();
   }, []);
 
   return (
-    // AuthProvider wraps everything so all pages can access user data
-    <AuthProvider>
-      <div className="app">
-        {/* React Router - maps URLs to page components */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/startup/:id" element={<StartupDetail />} />
-          <Route path="/submit" element={<Submit />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile/:userId" element={<Profile />} />
-        </Routes>
-      </div>
-    </AuthProvider>
+    <div className="min-h-screen bg-[#F8FAFF] text-[#1A1A2E] font-[DM_Sans]">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/pitch/:id" element={<PitchDetail />} />
+        <Route path="/submit" element={<SubmitPitch />} />
+        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </div>
   );
 }
-
-export default App;
