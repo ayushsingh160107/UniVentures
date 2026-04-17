@@ -1,5 +1,5 @@
 // ========================================
-// StatsBar.jsx — Animated stat counters (light)
+// StatsBar.jsx — Animated stat counters (premium)
 // ========================================
 
 import { useState, useEffect, useRef } from 'react';
@@ -36,7 +36,7 @@ function AnimatedCounter({ target, suffix = '', duration = 1500 }) {
   }
 
   return (
-    <span ref={ref} className="font-[Syne] text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#6C63FF] to-[#00B4D8] bg-clip-text text-transparent">
+    <span ref={ref} className="font-[Syne] text-3xl md:text-4xl font-bold text-gradient tabular-nums">
       {count}{suffix}
     </span>
   );
@@ -44,11 +44,14 @@ function AnimatedCounter({ target, suffix = '', duration = 1500 }) {
 
 export default function StatsBar({ stats }) {
   return (
-    <div className="grid grid-cols-3 gap-4 md:gap-8">
+    <div className="flex items-center justify-center gap-6 md:gap-10">
       {stats.map((stat, i) => (
-        <div key={i} className="text-center">
+        <div key={i} className="text-center relative">
           <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-          <p className="text-[#6B7280] text-sm mt-1">{stat.label}</p>
+          <p className="text-[#9CA3AF] text-xs font-medium mt-1 tracking-wide uppercase">{stat.label}</p>
+          {i < stats.length - 1 && (
+            <div className="absolute right-[-12px] md:right-[-20px] top-1/2 -translate-y-1/2 w-px h-8 bg-gray-200 hidden sm:block" />
+          )}
         </div>
       ))}
     </div>

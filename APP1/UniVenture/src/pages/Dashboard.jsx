@@ -1,15 +1,24 @@
 // ========================================
-// Dashboard.jsx — Premium dashboard (light)
+// Dashboard.jsx — Premium dashboard (refined)
 // ========================================
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronUp, Rocket, Users, Bookmark, Trash2, Check, X, Activity, PenLine } from 'lucide-react';
+import { ChevronUp, Rocket, Users, Bookmark, Trash2, Check, X, Activity, PenLine, MessageCircle, Heart, TrendingUp, Star } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import StartupCard from '../components/StartupCard';
 import Avatar from '../components/Avatar';
 import { getUser, getStartups, saveStartups, getRequests, saveRequests, getActivity } from '../data/mockStartups';
+
+// Map activity types to icons
+const ACTIVITY_ICONS = {
+  vote: { icon: ChevronUp, color: '#6C63FF', bg: '#6C63FF' },
+  comment: { icon: MessageCircle, color: '#00B4D8', bg: '#00B4D8' },
+  save: { icon: Star, color: '#F59E0B', bg: '#F59E0B' },
+  team: { icon: Users, color: '#10B981', bg: '#10B981' },
+  trending: { icon: TrendingUp, color: '#EF4444', bg: '#EF4444' },
+};
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -47,14 +56,14 @@ export default function Dashboard() {
     const updated = requests.map(r => r.id === reqId ? { ...r, status: action } : r);
     saveRequests(updated);
     setRequests(updated);
-    showToast(action === 'accepted' ? 'Request accepted! 🎉' : 'Request declined');
+    showToast(action === 'accepted' ? 'Request accepted' : 'Request declined');
   }
 
   const metrics = [
-    { icon: ChevronUp, label: 'Total Votes', value: totalVotes, color: '#6C63FF', bg: 'from-[#6C63FF]/5 to-[#6C63FF]/10' },
-    { icon: Rocket, label: 'Pitches', value: myPitches.length, color: '#00B4D8', bg: 'from-[#00B4D8]/5 to-[#00B4D8]/10' },
-    { icon: Users, label: 'Requests', value: pendingRequests.length, color: '#F59E0B', bg: 'from-[#F59E0B]/5 to-[#F59E0B]/10' },
-    { icon: Bookmark, label: 'Saved', value: savedPitches.length, color: '#10B981', bg: 'from-[#10B981]/5 to-[#10B981]/10' },
+    { icon: ChevronUp, label: 'Total Votes', value: totalVotes, color: '#6C63FF', bg: 'from-[#6C63FF]/[0.04] to-[#6C63FF]/[0.08]' },
+    { icon: Rocket, label: 'Pitches', value: myPitches.length, color: '#00B4D8', bg: 'from-[#00B4D8]/[0.04] to-[#00B4D8]/[0.08]' },
+    { icon: Users, label: 'Requests', value: pendingRequests.length, color: '#F59E0B', bg: 'from-[#F59E0B]/[0.04] to-[#F59E0B]/[0.08]' },
+    { icon: Bookmark, label: 'Saved', value: savedPitches.length, color: '#10B981', bg: 'from-[#10B981]/[0.04] to-[#10B981]/[0.08]' },
   ];
 
   return (
@@ -62,29 +71,30 @@ export default function Dashboard() {
       <Navbar />
 
       {toast && (
-        <div className="fixed top-20 right-4 z-50 px-5 py-3 rounded-xl text-sm font-medium shadow-lg toast-enter bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20">
+        <div className="fixed top-20 right-4 z-50 px-5 py-3 rounded-xl text-sm font-medium shadow-lg toast-enter bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20 backdrop-blur-sm">
           {toast}
         </div>
       )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         {/* Greeting */}
-        <div className="mb-8">
-          <h1 className="font-[Syne] text-3xl md:text-4xl font-bold text-[#1A1A2E]">
-            Hey {user.name.split(' ')[0]} 👋
+        <div className="mb-10">
+          <h1 className="font-[Syne] text-3xl md:text-4xl font-bold text-[#1A1A2E] tracking-tight">
+            Hey, {user.name.split(' ')[0]}
           </h1>
-          <p className="text-[#6B7280] mt-1">Here's what's happening with your startups</p>
+          <p className="text-[#9CA3AF] mt-1.5">Here's what's happening with your startups</p>
         </div>
 
         {/* Metric Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           {metrics.map((m, i) => (
-            <div key={i} className={`rounded-2xl bg-gradient-to-br ${m.bg} border border-gray-100 p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300`}>
+            <div key={i} className={`rounded-2xl bg-gradient-to-br ${m.bg} border border-gray-100/60 p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300`}
+              style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-3 bg-white shadow-sm" style={{ color: m.color }}>
-                <m.icon size={22} />
+                <m.icon size={20} />
               </div>
-              <p className="text-2xl font-bold font-mono text-[#1A1A2E]">{m.value}</p>
-              <p className="text-xs text-[#6B7280] mt-0.5">{m.label}</p>
+              <p className="text-2xl font-bold font-mono text-[#1A1A2E] tabular-nums">{m.value}</p>
+              <p className="text-xs text-[#9CA3AF] mt-1 font-medium">{m.label}</p>
             </div>
           ))}
         </div>
@@ -96,36 +106,41 @@ export default function Dashboard() {
             <section>
               <div className="flex items-center justify-between mb-5">
                 <h2 className="font-[Syne] text-xl font-bold text-[#1A1A2E]">Your Pitches</h2>
-                <Link to="/submit" className="text-sm text-[#6C63FF] hover:text-[#00B4D8] font-medium transition-colors">+ New Pitch</Link>
+                <Link to="/submit" className="text-sm text-[#6C63FF] hover:text-[#00B4D8] font-semibold transition-colors flex items-center gap-1">
+                  + New Pitch
+                </Link>
               </div>
               {myPitches.length > 0 ? (
                 <div className="space-y-3">
                   {myPitches.map(pitch => (
-                    <div key={pitch.id} className="group rounded-xl bg-white border border-gray-100 p-4 flex items-center gap-4 hover:shadow-md hover:border-gray-200 transition-all shadow-sm">
+                    <div key={pitch.id} className="group rounded-xl bg-white border border-gray-100/80 p-4 flex items-center gap-4 hover:shadow-md hover:border-gray-200/80 transition-all duration-300"
+                      style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                       <div className="flex-1 min-w-0">
                         <Link to={`/pitch/${pitch.id}`} className="font-semibold text-sm text-[#1A1A2E] hover:text-[#6C63FF] transition-colors">{pitch.title}</Link>
-                        <p className="text-xs text-[#6B7280] mt-0.5 truncate">{pitch.tagline}</p>
+                        <p className="text-xs text-[#9CA3AF] mt-0.5 truncate">{pitch.tagline}</p>
                       </div>
                       <div className="flex items-center gap-3 shrink-0">
-                        <span className="text-xs text-[#6B7280]"><span className="font-mono font-semibold text-[#6C63FF]">{pitch.votes}</span> votes</span>
-                        <Link to={`/pitch/${pitch.id}`} className="p-2 rounded-lg bg-gray-50 text-[#6B7280] hover:text-[#6C63FF] hover:bg-[#6C63FF]/5 transition-all"><PenLine size={14} /></Link>
+                        <span className="text-xs text-[#9CA3AF]"><span className="font-mono font-bold text-[#6C63FF]">{pitch.votes}</span> votes</span>
+                        <Link to={`/pitch/${pitch.id}`} className="p-2 rounded-lg bg-gray-50 text-[#9CA3AF] hover:text-[#6C63FF] hover:bg-[#6C63FF]/5 transition-all"><PenLine size={14} /></Link>
                         {deleteConfirm === pitch.id ? (
                           <div className="flex items-center gap-1">
                             <button onClick={() => handleDelete(pitch.id)} className="p-2 rounded-lg bg-[#EF4444]/5 text-[#EF4444] hover:bg-[#EF4444]/10 transition-colors"><Check size={14} /></button>
-                            <button onClick={() => setDeleteConfirm(null)} className="p-2 rounded-lg bg-gray-50 text-[#6B7280] hover:text-[#1A1A2E] transition-colors"><X size={14} /></button>
+                            <button onClick={() => setDeleteConfirm(null)} className="p-2 rounded-lg bg-gray-50 text-[#9CA3AF] hover:text-[#1A1A2E] transition-colors"><X size={14} /></button>
                           </div>
                         ) : (
-                          <button onClick={() => setDeleteConfirm(pitch.id)} className="p-2 rounded-lg bg-gray-50 text-[#6B7280] hover:text-[#EF4444] hover:bg-[#EF4444]/5 transition-all"><Trash2 size={14} /></button>
+                          <button onClick={() => setDeleteConfirm(pitch.id)} className="p-2 rounded-lg bg-gray-50 text-[#9CA3AF] hover:text-[#EF4444] hover:bg-[#EF4444]/5 transition-all"><Trash2 size={14} /></button>
                         )}
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="rounded-xl bg-white border border-gray-100 p-8 text-center shadow-sm">
-                  <p className="text-3xl mb-3">💡</p>
-                  <p className="text-[#6B7280] mb-4">No pitches yet. Share your first idea!</p>
-                  <Link to="/submit" className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-[#6C63FF] text-white text-sm shadow-lg shadow-[#6C63FF]/25"><Rocket size={14} /> Submit Pitch</Link>
+                <div className="rounded-2xl bg-white border border-gray-100/80 p-10 text-center" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                  <div className="w-14 h-14 rounded-2xl bg-[#6C63FF]/[0.06] flex items-center justify-center mx-auto mb-4">
+                    <Rocket size={24} className="text-[#6C63FF]" />
+                  </div>
+                  <p className="text-[#6B7280] mb-5">No pitches yet. Share your first idea!</p>
+                  <Link to="/submit" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#6C63FF] to-[#7B74FF] text-white text-sm font-semibold shadow-lg shadow-[#6C63FF]/20 hover:shadow-xl transition-all"><Rocket size={14} /> Submit Pitch</Link>
                 </div>
               )}
             </section>
@@ -136,10 +151,12 @@ export default function Dashboard() {
               {savedPitches.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">{savedPitches.map(s => <StartupCard key={s.id} startup={s} compact />)}</div>
               ) : (
-                <div className="rounded-xl bg-white border border-gray-100 p-8 text-center shadow-sm">
-                  <p className="text-3xl mb-3">🔖</p>
-                  <p className="text-[#6B7280] mb-4">Save startups to track them here</p>
-                  <Link to="/explore" className="text-sm text-[#6C63FF] hover:underline">Browse Startups →</Link>
+                <div className="rounded-2xl bg-white border border-gray-100/80 p-10 text-center" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                  <div className="w-14 h-14 rounded-2xl bg-gray-50 flex items-center justify-center mx-auto mb-4">
+                    <Bookmark size={24} className="text-[#9CA3AF]" />
+                  </div>
+                  <p className="text-[#6B7280] mb-5">Save startups to track them here</p>
+                  <Link to="/explore" className="text-sm text-[#6C63FF] hover:underline font-medium">Browse Startups →</Link>
                 </div>
               )}
             </section>
@@ -148,18 +165,21 @@ export default function Dashboard() {
           {/* RIGHT SIDEBAR */}
           <div className="space-y-6">
             {/* Requests */}
-            <section className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
+            <section className="rounded-2xl bg-white border border-gray-100/80 p-5" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
               <h3 className="font-[Syne] text-base font-bold text-[#1A1A2E] mb-4 flex items-center gap-2">
-                <Users size={16} className="text-[#F59E0B]" /> Collaboration Requests
+                <div className="w-7 h-7 rounded-lg bg-[#F59E0B]/10 flex items-center justify-center">
+                  <Users size={14} className="text-[#F59E0B]" />
+                </div>
+                Collaboration Requests
               </h3>
               <div className="space-y-3">
                 {requests.map(req => (
-                  <div key={req.id} className="rounded-xl bg-gray-50 border border-gray-100 p-4">
+                  <div key={req.id} className="rounded-xl bg-[#F9FAFB] border border-gray-100/80 p-4">
                     <div className="flex items-start gap-3">
                       <Avatar name={req.personName} size="sm" />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-[#1A1A2E]">{req.personName}</p>
-                        <p className="text-xs text-[#6B7280]">wants to join <span className="text-[#6C63FF] font-medium">{req.pitchTitle}</span> as {req.role}</p>
+                        <p className="text-xs text-[#9CA3AF]">wants to join <span className="text-[#6C63FF] font-medium">{req.pitchTitle}</span> as {req.role}</p>
                       </div>
                     </div>
                     {req.status === 'pending' ? (
@@ -178,20 +198,30 @@ export default function Dashboard() {
             </section>
 
             {/* Activity */}
-            <section className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
+            <section className="rounded-2xl bg-white border border-gray-100/80 p-5" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
               <h3 className="font-[Syne] text-base font-bold text-[#1A1A2E] mb-4 flex items-center gap-2">
-                <Activity size={16} className="text-[#00B4D8]" /> Activity Feed
+                <div className="w-7 h-7 rounded-lg bg-[#00B4D8]/10 flex items-center justify-center">
+                  <Activity size={14} className="text-[#00B4D8]" />
+                </div>
+                Activity Feed
               </h3>
               <div className="space-y-2">
-                {activity.map(item => (
-                  <div key={item.id} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100/80 transition-colors">
-                    <span className="text-lg shrink-0">{item.icon}</span>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-[#1A1A2E] truncate">{item.text}</p>
-                      <p className="text-xs text-[#9CA3AF]">{item.time}</p>
+                {activity.map(item => {
+                  const activityMeta = ACTIVITY_ICONS[item.icon] || ACTIVITY_ICONS.vote;
+                  const IconComponent = activityMeta.icon;
+                  return (
+                    <div key={item.id} className="flex items-center gap-3 p-3 rounded-xl bg-[#F9FAFB] hover:bg-gray-100/60 transition-colors">
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                        style={{ backgroundColor: activityMeta.bg + '10' }}>
+                        <IconComponent size={14} style={{ color: activityMeta.color }} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-[#1A1A2E] truncate">{item.text}</p>
+                        <p className="text-xs text-[#9CA3AF]">{item.time}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </section>
           </div>

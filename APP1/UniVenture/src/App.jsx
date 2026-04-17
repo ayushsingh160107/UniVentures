@@ -12,6 +12,8 @@ import PitchDetail from './pages/PitchDetail';
 import SubmitPitch from './pages/SubmitPitch';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 export default function App() {
   useEffect(() => {
@@ -27,6 +29,8 @@ export default function App() {
         <Route path="/submit" element={<SubmitPitch />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );

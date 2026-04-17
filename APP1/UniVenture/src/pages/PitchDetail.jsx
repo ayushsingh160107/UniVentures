@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   Eye, MessageCircle, Bookmark, BookmarkCheck, Share2, Calendar,
-  ArrowLeft, UserPlus, Copy, Check, ExternalLink, FileText, Play, Video
+  ArrowLeft, UserPlus, Copy, Check, ExternalLink, FileText, Play, Video, Search
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -54,7 +54,7 @@ export default function PitchDetail() {
     } else {
       user.savedStartups = [...(user.savedStartups || []), id];
       setSaved(true);
-      showToast('Saved to watchlist! 🔖');
+      showToast('Saved to watchlist');
     }
     saveUser(user);
   }
@@ -62,7 +62,7 @@ export default function PitchDetail() {
   function handleCopy() {
     navigator.clipboard.writeText(window.location.href);
     setCopied(true);
-    showToast('Link copied! 📋');
+    showToast('Link copied');
     setTimeout(() => setCopied(false), 2000);
   }
 
@@ -77,11 +77,11 @@ export default function PitchDetail() {
     saveStartups(all);
     setStartup({ ...all[idx] });
     setNewComment('');
-    showToast('Comment posted! 💬');
+    showToast('Comment posted');
   }
 
   function handleRequestRole(role) {
-    showToast(`Collaboration request sent for ${role}! 🤝`);
+    showToast(`Collaboration request sent for ${role}`);
   }
 
   if (!startup) {
@@ -89,7 +89,7 @@ export default function PitchDetail() {
       <div className="min-h-screen bg-[#F8FAFF]">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 pt-24 text-center">
-          <p className="text-5xl mb-4">🔍</p>
+          <Search size={40} className="text-[#6B7280] mx-auto mb-4" />
           <h2 className="font-[Syne] text-2xl font-bold text-[#1A1A2E] mb-2">Startup not found</h2>
           <Link to="/explore" className="text-[#6C63FF] hover:underline">Back to Explore</Link>
         </div>
@@ -126,10 +126,10 @@ export default function PitchDetail() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* LEFT COLUMN */}
           <main className="flex-1 min-w-0">
-            <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6 md:p-8">
+            <div className="rounded-2xl bg-white border border-gray-100/80 p-6 md:p-8" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.03)' }}>
               <div className="flex items-center gap-3 mb-4">
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: domainInfo.color + '15', color: domainInfo.color }}>
-                  {domainInfo.emoji} {startup.domain}
+                <span className="px-3 py-1 rounded-full text-xs font-semibold" style={{ backgroundColor: domainInfo.color + '15', color: domainInfo.color }}>
+                  {startup.domain}
                 </span>
                 <span className="text-xs text-[#6B7280]">{timeAgo(startup.postedAt)}</span>
               </div>
@@ -148,7 +148,7 @@ export default function PitchDetail() {
                 {startup.tags.map(tag => <TagBadge key={tag} tag={tag} />)}
               </div>
 
-              {/* Hero: Video or Emoji fallback */}
+              {/* Hero: Video or Placeholder */}
               {startup.demoVideo ? (
                 <div className="w-full aspect-video rounded-xl overflow-hidden border border-gray-100 shadow-md mb-8 relative group">
                   <iframe
@@ -165,7 +165,7 @@ export default function PitchDetail() {
                 </div>
               ) : (
                 <div className="w-full h-48 md:h-64 rounded-xl bg-gradient-to-br from-[#6C63FF]/5 to-[#00B4D8]/5 border border-gray-100 flex items-center justify-center mb-8">
-                  <span className="text-6xl">{domainInfo.emoji}</span>
+                  <span className="text-3xl font-bold font-mono text-[#6C63FF]/30">{startup.domain}</span>
                 </div>
               )}
 
@@ -186,12 +186,11 @@ export default function PitchDetail() {
               <div className="animate-fade-up">
                 {activeTab === 'pitch' && (
                   <div className="space-y-8">
-                    <PitchSection emoji="🎯" title="Problem" content={startup.problem} />
-                    <PitchSection emoji="💡" title="Solution" content={startup.solution} />
-                    <PitchSection emoji="📊" title="Target Market" content={startup.market} />
+                    <PitchSection title="Problem" content={startup.problem} />
+                    <PitchSection title="Solution" content={startup.solution} />
+                    <PitchSection title="Target Market" content={startup.market} />
                     <div>
-                      <h3 className="font-[Syne] font-semibold text-lg mb-4 flex items-center gap-2">
-                        <span>📈</span>
+                      <h3 className="font-[Syne] font-semibold text-lg mb-4">
                         <span className="bg-gradient-to-r from-[#6C63FF] to-[#00B4D8] bg-clip-text text-transparent">Market Size: {startup.marketSize}</span>
                       </h3>
                       <div className="space-y-3">
@@ -205,7 +204,7 @@ export default function PitchDetail() {
                         ))}
                       </div>
                     </div>
-                    <PitchSection emoji="🚀" title="Traction" content={startup.traction} />
+                    <PitchSection title="Traction" content={startup.traction} />
                     <div className="p-5 rounded-xl bg-[#6C63FF]/5 border border-[#6C63FF]/15">
                       <div className="flex items-center justify-between">
                         <div>
@@ -322,11 +321,11 @@ export default function PitchDetail() {
           {/* RIGHT SIDEBAR */}
           <aside className="w-full lg:w-80 shrink-0">
             <div className="lg:sticky lg:top-24 space-y-4">
-              <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
+              <div className="rounded-2xl bg-white border border-gray-100/80 p-5" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <VoteButton pitchId={startup.id} initialVotes={startup.votes} size="lg" />
               </div>
 
-              <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 grid grid-cols-2 gap-4">
+              <div className="rounded-2xl bg-white border border-gray-100/80 p-5 grid grid-cols-2 gap-4" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 {[{ icon: Eye, label: 'Views', value: startup.views }, { icon: Bookmark, label: 'Saves', value: startup.saves },
                   { icon: MessageCircle, label: 'Comments', value: startup.comments?.length || 0 }, { icon: Calendar, label: 'Posted', value: timeAgo(startup.postedAt).replace(' ago', '') }
                 ].map((stat, i) => (
@@ -338,13 +337,13 @@ export default function PitchDetail() {
                 ))}
               </div>
 
-              <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
+              <div className="rounded-2xl bg-white border border-gray-100/80 p-5" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <p className="text-xs text-[#6B7280] mb-1">Asking</p>
                 <p className="font-[Syne] text-xl font-bold text-[#6C63FF] mb-2">{formatFunding(startup.fundingAsk)}</p>
                 <span className="px-2.5 py-1 rounded-lg text-xs font-medium bg-[#6C63FF]/10 text-[#6C63FF]">{startup.fundingType}</span>
               </div>
 
-              <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
+              <div className="rounded-2xl bg-white border border-gray-100/80 p-5" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <h4 className="font-[Syne] font-semibold text-sm mb-3 flex items-center gap-2 text-[#1A1A2E]">
                   <UserPlus size={14} className="text-[#00B4D8]" /> Roles Needed
                 </h4>
@@ -361,7 +360,7 @@ export default function PitchDetail() {
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 space-y-3">
+              <div className="rounded-2xl bg-white border border-gray-100/80 p-5 space-y-3" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 {/* SAVE BUTTON */}
                 <button onClick={handleSave}
                   className={`group/save w-full flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 btn-ripple active:scale-[0.97] ${
@@ -414,11 +413,10 @@ export default function PitchDetail() {
   );
 }
 
-function PitchSection({ emoji, title, content }) {
+function PitchSection({ title, content }) {
   return (
     <div>
-      <h3 className="font-[Syne] font-semibold text-lg mb-3 flex items-center gap-2">
-        <span>{emoji}</span>
+      <h3 className="font-[Syne] font-semibold text-lg mb-3">
         <span className="bg-gradient-to-r from-[#6C63FF] to-[#00B4D8] bg-clip-text text-transparent">{title}</span>
       </h3>
       <p className="text-[#6B7280] leading-relaxed">{content}</p>

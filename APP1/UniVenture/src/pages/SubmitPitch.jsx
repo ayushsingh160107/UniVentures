@@ -11,9 +11,9 @@ import { getStartups, saveStartups, getUser, DOMAINS, ROLE_OPTIONS, MARKET_SIZES
 import { generateId } from '../utils/helpers';
 
 const STEPS = [
-  { num: 1, title: 'The Idea', desc: 'Tell us about your startup', emoji: '💡' },
-  { num: 2, title: 'The Business', desc: 'Market and funding details', emoji: '📊' },
-  { num: 3, title: 'The Team', desc: 'Who\'s building this?', emoji: '👥' },
+  { num: 1, title: 'The Idea', desc: 'Tell us about your startup' },
+  { num: 2, title: 'The Business', desc: 'Market and funding details' },
+  { num: 3, title: 'The Team', desc: 'Who\'s building this?' },
 ];
 
 // Convert YouTube watch URLs → embed URLs
@@ -134,7 +134,7 @@ export default function SubmitPitch() {
             <div className="w-16 h-16 rounded-full bg-[#10B981]/10 flex items-center justify-center mx-auto mb-5">
               <Check size={32} className="text-[#10B981]" />
             </div>
-            <h2 className="font-[Syne] text-2xl font-bold text-[#1A1A2E] mb-2">Pitch Submitted! 🎉</h2>
+            <h2 className="font-[Syne] text-2xl font-bold text-[#1A1A2E] mb-2">Pitch Submitted!</h2>
             <p className="text-[#6B7280] text-sm">Your startup is now live. Redirecting to explore...</p>
           </div>
         </div>
@@ -153,7 +153,7 @@ export default function SubmitPitch() {
                       ? 'bg-[#10B981]/10 text-[#10B981]'
                       : 'bg-gray-100 text-[#6B7280]'
                 }`}>
-                  {step > s.num ? <Check size={14} /> : <span>{s.emoji}</span>}
+                  {step > s.num ? <Check size={14} /> : <span className="font-mono text-xs">{s.num}</span>}
                   <span className="hidden sm:inline">{s.title}</span>
                 </div>
                 {i < STEPS.length - 1 && <div className={`w-8 md:w-16 h-0.5 mx-2 rounded ${step > s.num ? 'bg-[#10B981]/40' : 'bg-gray-200'}`} />}
@@ -169,7 +169,7 @@ export default function SubmitPitch() {
         <div className="rounded-2xl bg-white border border-gray-100 shadow-xl shadow-gray-200/50 p-6 md:p-8">
           <div className="mb-8">
             <h1 className="font-[Syne] text-2xl font-bold text-[#1A1A2E] flex items-center gap-2">
-              {STEPS[step - 1].emoji} {STEPS[step - 1].title}
+              Step {step}: {STEPS[step - 1].title}
             </h1>
             <p className="text-sm text-[#6B7280] mt-1">{STEPS[step - 1].desc}</p>
           </div>
@@ -186,7 +186,7 @@ export default function SubmitPitch() {
               <Field label="Domain" error={errors.domain} required>
                 <select value={form.domain} onChange={e => updateField('domain', e.target.value)} className="field-input">
                   <option value="">Select domain</option>
-                  {DOMAINS.map(d => <option key={d.name} value={d.name}>{d.emoji} {d.name}</option>)}
+                  {DOMAINS.map(d => <option key={d.name} value={d.name}>{d.name}</option>)}
                 </select>
               </Field>
               <Field label="Problem Statement" error={errors.problem} required count={`${form.problem.length}/300`}>

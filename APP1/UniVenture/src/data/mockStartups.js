@@ -427,7 +427,7 @@ export const SAMPLE_ACTIVITY = [
 // localStorage helpers
 // ========================================
 export function initData() {
-  const DATA_VERSION = 'v2-demo-videos';
+  const DATA_VERSION = 'v4-refined-ui';
   if (localStorage.getItem('uv_version') !== DATA_VERSION) {
     localStorage.setItem('uv_startups', JSON.stringify(SAMPLE_STARTUPS));
     localStorage.setItem('uv_user', JSON.stringify(DEFAULT_USER));

@@ -40,11 +40,11 @@ export default function VoteButton({ pitchId, initialVotes, onVoteChange, size =
       setVotes(startups[idx].votes);
       setHasVoted(true);
       // Spawn particles on upvote
-      const newParticles = Array.from({ length: 6 }, (_, i) => ({
+      const newParticles = Array.from({ length: 4 }, (_, i) => ({
         id: Date.now() + i,
-        x: (Math.random() - 0.5) * 60,
-        y: -(Math.random() * 40 + 10),
-        emoji: ['🔥', '⬆', '✨', '💜', '🚀', '⭐'][i]
+        x: (Math.random() - 0.5) * 50,
+        y: -(Math.random() * 30 + 10),
+        text: ['+1', '+1', '+1', '+1'][i]
       }));
       setParticles(newParticles);
       setTimeout(() => setParticles([]), 700);
@@ -69,10 +69,10 @@ export default function VoteButton({ pitchId, initialVotes, onVoteChange, size =
       {particles.map(p => (
         <span
           key={p.id}
-          className="absolute text-sm pointer-events-none vote-particle z-10"
+          className="absolute text-xs font-bold text-[#6C63FF] pointer-events-none vote-particle z-10"
           style={{ left: `calc(50% + ${p.x}px)`, top: `calc(50% + ${p.y}px)` }}
         >
-          {p.emoji}
+          {p.text}
         </span>
       ))}
 

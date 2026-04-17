@@ -1,5 +1,5 @@
 // ========================================
-// Footer.jsx — Light themed footer
+// Footer.jsx — Refined footer
 // ========================================
 
 import { Link } from 'react-router-dom';
@@ -33,32 +33,32 @@ const socialIcons = [GithubIcon, TwitterIcon, LinkedinIcon];
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-100 mt-20">
+    <footer className="bg-white border-t border-gray-100/80 mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
+            <Link to="/" className="flex items-center gap-2.5 mb-4">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#6C63FF] to-[#00B4D8] flex items-center justify-center">
-                <Rocket size={18} className="text-white" />
+                <Rocket size={16} className="text-white" />
               </div>
-              <span className="font-[Syne] text-xl font-bold bg-gradient-to-r from-[#6C63FF] to-[#00B4D8] bg-clip-text text-transparent">
+              <span className="font-[Syne] text-xl font-bold text-gradient">
                 UniVenture
               </span>
             </Link>
-            <p className="text-[#6B7280] text-sm leading-relaxed">
+            <p className="text-[#9CA3AF] text-sm leading-relaxed">
               Where college ideas become real startups. Pitch, connect, and build your dream team.
             </p>
-            <div className="flex gap-3 mt-5">
+            <div className="flex gap-2.5 mt-5">
               {socialIcons.map((Icon, i) => (
-                <a key={i} href="#" className="w-9 h-9 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-[#6B7280] hover:text-[#6C63FF] hover:border-[#6C63FF]/30 hover:bg-[#6C63FF]/5 transition-all">
-                  <Icon size={16} />
+                <a key={i} href="#" className="w-9 h-9 rounded-xl bg-[#F9FAFB] border border-gray-200/60 flex items-center justify-center text-[#9CA3AF] hover:text-[#6C63FF] hover:border-[#6C63FF]/20 hover:bg-[#6C63FF]/[0.04] hover:shadow-sm transition-all duration-200">
+                  <Icon size={15} />
                 </a>
               ))}
             </div>
           </div>
 
           <div>
-            <h4 className="font-[Syne] font-semibold text-xs uppercase tracking-widest text-[#6B7280] mb-4">Platform</h4>
+            <h4 className="font-[Syne] font-semibold text-xs uppercase tracking-widest text-[#9CA3AF] mb-4">Platform</h4>
             <div className="space-y-3">
               <Link to="/explore" className="block text-sm text-[#6B7280] hover:text-[#1A1A2E] transition-colors">Browse Startups</Link>
               <Link to="/submit" className="block text-sm text-[#6B7280] hover:text-[#1A1A2E] transition-colors">Submit Pitch</Link>
@@ -67,7 +67,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-[Syne] font-semibold text-xs uppercase tracking-widest text-[#6B7280] mb-4">Company</h4>
+            <h4 className="font-[Syne] font-semibold text-xs uppercase tracking-widest text-[#9CA3AF] mb-4">Company</h4>
             <div className="space-y-3">
               <a href="#" className="block text-sm text-[#6B7280] hover:text-[#1A1A2E] transition-colors">About Us</a>
               <a href="#" className="block text-sm text-[#6B7280] hover:text-[#1A1A2E] transition-colors">Blog</a>
@@ -76,7 +76,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-[Syne] font-semibold text-xs uppercase tracking-widest text-[#6B7280] mb-4">Legal</h4>
+            <h4 className="font-[Syne] font-semibold text-xs uppercase tracking-widest text-[#9CA3AF] mb-4">Legal</h4>
             <div className="space-y-3">
               <a href="#" className="block text-sm text-[#6B7280] hover:text-[#1A1A2E] transition-colors">Privacy Policy</a>
               <a href="#" className="block text-sm text-[#6B7280] hover:text-[#1A1A2E] transition-colors">Terms of Service</a>
@@ -86,10 +86,10 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-gray-100">
+      <div className="border-t border-gray-100/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-xs text-[#6B7280]">© 2024 UniVenture. All rights reserved.</p>
-          <p className="text-xs text-[#6B7280]">Built with 💜 for college founders</p>
+          <p className="text-xs text-[#9CA3AF]">© 2024 UniVenture. All rights reserved.</p>
+          <p className="text-xs text-[#9CA3AF]">Built for college founders</p>
         </div>
       </div>
     </footer>

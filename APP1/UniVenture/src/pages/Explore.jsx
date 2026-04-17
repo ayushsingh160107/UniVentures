@@ -1,9 +1,10 @@
 // ========================================
-// Explore.jsx — Browse startups (light theme)
+// Explore.jsx — Browse startups (refined)
 // ========================================
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { Search, Compass } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import StartupCard from '../components/StartupCard';
@@ -58,27 +59,29 @@ export default function Explore() {
         totalCount={startups.length} filteredCount={filtered.length}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-6">
         <div className="mb-8">
-          <h1 className="font-[Syne] text-3xl md:text-4xl font-bold text-[#1A1A2E] mb-2">
+          <h1 className="font-[Syne] text-3xl md:text-4xl font-bold text-[#1A1A2E] mb-2 tracking-tight">
             {activeDomain === 'All' ? 'All Startups' : activeDomain}
           </h1>
-          <p className="text-[#6B7280]">Discover the next big thing from college founders</p>
+          <p className="text-[#9CA3AF]">Discover the next big thing from college founders</p>
         </div>
 
         {filtered.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((startup, i) => (
-              <div key={startup.id} className="animate-fade-up opacity-0" style={{ animationDelay: `${i * 0.05}s` }}>
+              <div key={startup.id} className="animate-fade-up opacity-0" style={{ animationDelay: `${i * 0.04}s` }}>
                 <StartupCard startup={startup} />
               </div>
             ))}
           </div>
         ) : (
-          <div className="text-center py-20">
-            <p className="text-5xl mb-4">🔍</p>
-            <h3 className="font-[Syne] text-xl font-semibold text-[#1A1A2E] mb-2">No startups found</h3>
-            <p className="text-[#6B7280]">Try adjusting your filters or search query</p>
+          <div className="text-center py-24">
+            <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center mx-auto mb-5">
+              <Compass size={28} className="text-[#9CA3AF]" />
+            </div>
+            <h3 className="font-[Syne] text-xl font-bold text-[#1A1A2E] mb-2">No startups found</h3>
+            <p className="text-[#9CA3AF] max-w-sm mx-auto">Try adjusting your filters or search query to discover more pitches</p>
           </div>
         )}
       </div>

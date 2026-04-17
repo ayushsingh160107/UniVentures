@@ -43,15 +43,15 @@ export default function Profile() {
       <Navbar />
 
       {/* Cover Banner */}
-      <div className="relative h-52 md:h-72 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#6C63FF] via-[#8B7BFF] to-[#00B4D8]" />
-        <div className="absolute inset-0 grid-pattern opacity-20" />
-        <div className="absolute top-10 right-20 w-40 h-40 bg-white rounded-full blur-[100px] opacity-20 pointer-events-none" />
-        <div className="absolute bottom-5 left-20 w-48 h-48 bg-[#00B4D8] rounded-full blur-[120px] opacity-20 pointer-events-none" />
+      <div className="relative h-48 md:h-64 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#6C63FF] via-[#7B74FF] to-[#00B4D8]" />
+        <div className="absolute inset-0 grid-pattern opacity-15" />
+        <div className="absolute top-10 right-20 w-40 h-40 bg-white rounded-full blur-[100px] opacity-15 pointer-events-none" />
+        <div className="absolute bottom-5 left-20 w-48 h-48 bg-[#00B4D8] rounded-full blur-[120px] opacity-15 pointer-events-none" />
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative -mt-20 mb-8">
+        <div className="relative -mt-16 mb-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-end gap-5">
             <div className="ring-4 ring-white rounded-full shadow-xl">
               <Avatar name={user.name} size="2xl" />
@@ -86,14 +86,14 @@ export default function Profile() {
         </div>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
           {stats.map((stat, i) => (
-            <div key={i} className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+            <div key={i} className="rounded-2xl bg-white border border-gray-100/80 p-5 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
               <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2" style={{ backgroundColor: stat.color + '10' }}>
                 <stat.icon size={18} style={{ color: stat.color }} />
               </div>
               <p className="text-2xl font-bold font-mono text-[#1A1A2E]">{stat.value}</p>
-              <p className="text-xs text-[#6B7280] mt-0.5">{stat.label}</p>
+              <p className="text-xs text-[#9CA3AF] mt-0.5 font-medium">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -114,13 +114,13 @@ export default function Profile() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {myPitches.map(s => <StartupCard key={s.id} startup={s} compact />)}
             </div>
-          ) : <Empty emoji="💡" title="No pitches yet" desc="Submit your first idea!" link="/submit" linkText="Submit Pitch" />)}
+          ) : <Empty icon="rocket" title="No pitches yet" desc="Submit your first idea!" link="/submit" linkText="Submit Pitch" />)}
 
           {activeTab === 'saved' && (savedPitches.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {savedPitches.map(s => <StartupCard key={s.id} startup={s} compact />)}
             </div>
-          ) : <Empty emoji="🔖" title="Nothing saved" desc="Browse and save startups!" link="/explore" linkText="Explore" />)}
+          ) : <Empty icon="bookmark" title="Nothing saved" desc="Browse and save startups!" link="/explore" linkText="Explore" />)}
         </div>
       </div>
       <Footer />
@@ -128,10 +128,13 @@ export default function Profile() {
   );
 }
 
-function Empty({ emoji, title, desc, link, linkText }) {
+function Empty({ icon, title, desc, link, linkText }) {
   return (
     <div className="text-center py-16">
-      <p className="text-5xl mb-4">{emoji}</p>
+      {icon === 'rocket'
+        ? <Rocket size={32} className="text-[#6C63FF] mx-auto mb-4" />
+        : <Bookmark size={32} className="text-[#6B7280] mx-auto mb-4" />
+      }
       <h3 className="font-[Syne] text-xl font-semibold text-[#1A1A2E] mb-2">{title}</h3>
       <p className="text-[#6B7280] mb-6">{desc}</p>
       <Link to={link} className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#6C63FF] text-white text-sm font-medium shadow-lg shadow-[#6C63FF]/25">{linkText}</Link>
