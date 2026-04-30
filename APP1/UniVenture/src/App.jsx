@@ -20,7 +20,7 @@ export default function App() {
     initData();
   }, []);
 
-  return (
+   return(
     <div className="min-h-screen bg-[#F8FAFF] text-[#1A1A2E] font-[DM_Sans]">
       <Routes>
         <Route path="/" element={<Home />} />

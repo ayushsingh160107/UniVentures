@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UniVenture — Complete Viva Preparation Guide</title>
+  <style>
+    @page { size: A4; margin: 20mm 18mm; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px; line-height: 1.7; color: #1a1a2e;
+      max-width: 210mm; margin: 0 auto; padding: 20px 30px;
+    }
+    h1 { color: #6C63FF; border-bottom: 3px solid #6C63FF; padding-bottom: 10px; font-size: 26px; margin-top: 40px; page-break-after: avoid; }
+    h2 { color: #1a1a2e; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-top: 35px; font-size: 20px; page-break-after: avoid; }
+    h3 { color: #6C63FF; font-size: 16px; margin-top: 25px; page-break-after: avoid; }
+    h4 { color: #00B4D8; font-size: 14px; page-break-after: avoid; }
+    p { margin: 8px 0; }
+    table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 12px; page-break-inside: avoid; }
+    th { background: #6C63FF; color: white; padding: 8px 12px; text-align: left; font-weight: 600; border: 1px solid #5b54e6; }
+    td { border: 1px solid #e2e8f0; padding: 8px 12px; vertical-align: top; }
+    tr:nth-child(even) { background: #f8faff; }
+    code { background: #f0f4ff; color: #6C63FF; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', 'Courier New', monospace; font-size: 12px; }
+    pre { background: #1e1e2e; color: #cdd6f4; padding: 16px 20px; border-radius: 10px; font-size: 11.5px; overflow-x: auto; line-height: 1.5; page-break-inside: avoid; border: 1px solid #313244; }
+    pre code { background: transparent; color: inherit; padding: 0; font-size: 11.5px; }
+    blockquote { border-left: 4px solid #6C63FF; background: #f0f4ff; padding: 14px 18px; margin: 14px 0; border-radius: 0 10px 10px 0; font-size: 13px; }
+    blockquote p { margin: 4px 0; }
+    strong { color: #1a1a2e; }
+    a { color: #6C63FF; text-decoration: none; }
+    hr { border: none; border-top: 2px solid #e2e8f0; margin: 30px 0; }
+    ul, ol { padding-left: 24px; margin: 8px 0; }
+    li { margin: 4px 0; }
+    img { max-width: 100%; }
+    .header-banner { background: linear-gradient(135deg, #6C63FF 0%, #00B4D8 100%); color: white; padding: 40px 30px; border-radius: 16px; margin-bottom: 30px; text-align: center; }
+    .header-banner h1 { color: white; border-bottom: none; margin: 0 0 10px 0; font-size: 30px; }
+    .header-banner p { color: rgba(255,255,255,0.85); font-size: 14px; margin: 0; }
+    @media print {
+      body { font-size: 11px; padding: 0; }
+      pre { font-size: 10px; }
+      h1 { font-size: 22px; } h2 { font-size: 17px; } h3 { font-size: 14px; }
+      .header-banner { padding: 25px 20px; }
+      .header-banner h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-banner">
+    <h1>UniVenture — Complete Viva Preparation Guide</h1>
+    <p>React 19 + Vite 7 + TailwindCSS v4 + React Router v7 &nbsp;|&nbsp; Every file explained line-by-line</p>
+  </div>
+  <h1>UniVenture — Complete Viva Preparation Guide</h1>
+<blockquote>
+<p><strong>Project</strong>: UniVenture — A startup pitching platform for college founders<br><strong>Tech Stack</strong>: React 19 + Vite 7 + TailwindCSS v4 + React Router v7<br><strong>Purpose</strong>: This document explains <strong>every single file and line of code</strong> in your project and teaches you the React concepts behind them.</p>
+</blockquote>
+<hr>
+<h2>Table of Contents</h2>
+<ol>
+<li><a href="#1-project-overview--architecture">Project Overview &amp; Architecture</a></li>
+<li><a href="#2-technology-stack-deep-dive">Technology Stack Deep Dive</a></li>
+<li><a href="#3-configuration-files">Configuration Files</a></li>
+<li><a href="#4-entry-point--mainjsx--appjsx">Entry Point — main.jsx &amp; App.jsx</a></li>
+<li><a href="#5-global-styles--indexcss">Global Styles — index.css</a></li>
+<li><a href="#6-data-layer--mockstartupsjs">Data Layer — mockStartups.js</a></li>
+<li><a href="#7-custom-hooks--uselocalstorejs">Custom Hooks — useLocalStorage.js</a></li>
+<li><a href="#8-utility-functions--helpersjs">Utility Functions — helpers.js</a></li>
+<li><a href="#9-components-detailed-breakdown">Components (Detailed Breakdown)</a></li>
+<li><a href="#10-pages-detailed-breakdown">Pages (Detailed Breakdown)</a></li>
+<li><a href="#11-react-concepts-used-in-this-project">React Concepts Used in This Project</a></li>
+<li><a href="#12-future-improvements">Future Improvements</a></li>
+<li><a href="#13-viva-questions--answers">Viva Questions &amp; Answers</a></li>
+</ol>
+<hr>
+<h2>1. Project Overview &amp; Architecture</h2>
+<p>UniVenture is a <strong>single-page application (SPA)</strong> where college students can:</p>
+<ul>
+<li><strong>Pitch</strong> their startup ideas with detailed problem/solution statements</li>
+<li><strong>Explore</strong> and filter startups by domain, role, and popularity</li>
+<li><strong>Vote</strong>, <strong>save</strong>, and <strong>comment</strong> on pitches</li>
+<li><strong>Build teams</strong> by requesting collaboration</li>
+<li><strong>Sign up</strong> as a Student (founder) or Investor</li>
+</ul>
+<h3>Folder Structure</h3>
+<pre><code>UniVenture/
+├── index.html            ← Single HTML page (the &quot;S&quot; in SPA)
+├── package.json          ← Dependencies &amp; scripts
+├── vite.config.js        ← Build tool configuration
+├── src/
+│   ├── main.jsx          ← React entry point — mounts the app
+│   ├── App.jsx           ← Root component — defines all routes
+│   ├── index.css         ← Global styles, animations, design tokens
+│   ├── components/       ← Reusable UI building blocks
+│   │   ├── Avatar.jsx
+│   │   ├── FilterBar.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── StartupCard.jsx
+│   │   ├── StatsBar.jsx
+│   │   ├── TagBadge.jsx
+│   │   └── VoteButton.jsx
+│   ├── pages/            ← Full-page views (one per route)
+│   │   ├── Home.jsx
+│   │   ├── Explore.jsx
+│   │   ├── PitchDetail.jsx
+│   │   ├── SubmitPitch.jsx
+│   │   ├── Profile.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── Login.jsx
+│   │   └── Signup.jsx
+│   ├── data/
+│   │   └── mockStartups.js  ← Seed data + localStorage CRUD functions
+│   ├── hooks/
+│   │   └── useLocalStorage.js  ← Custom hook for persistent state
+│   └── utils/
+│       └── helpers.js    ← Utility functions (formatting, IDs, etc.)
+</code></pre>
+<h3>How Data Flows</h3>
+<p><em>[Diagram — see the .md file for the interactive Mermaid chart]</em></p><hr>
+<h2>2. Technology Stack Deep Dive</h2>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>React</strong></td>
+<td>19.2.0</td>
+<td>UI library — builds the component tree</td>
+</tr>
+<tr>
+<td><strong>React DOM</strong></td>
+<td>19.2.0</td>
+<td>Renders React components to the browser DOM</td>
+</tr>
+<tr>
+<td><strong>React Router DOM</strong></td>
+<td>7.14.0</td>
+<td>Client-side routing — navigates without page reloads</td>
+</tr>
+<tr>
+<td><strong>Vite</strong></td>
+<td>7.3.1</td>
+<td>Build tool — blazing fast dev server + bundler</td>
+</tr>
+<tr>
+<td><strong>TailwindCSS</strong></td>
+<td>4.2.2</td>
+<td>Utility-first CSS framework</td>
+</tr>
+<tr>
+<td><strong>Lucide React</strong></td>
+<td>1.8.0</td>
+<td>Icon library (tree-shakable SVG icons)</td>
+</tr>
+</tbody></table>
+<h3>Why Vite over Create React App (CRA)?</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Vite</th>
+<th>CRA</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dev server startup</td>
+<td>~300ms (instant)</td>
+<td>~10-30s</td>
+</tr>
+<tr>
+<td>Hot Module Replacement</td>
+<td>Instant</td>
+<td>Slower</td>
+</tr>
+<tr>
+<td>Build speed</td>
+<td>esbuild (Go-based)</td>
+<td>Webpack (JS-based)</td>
+</tr>
+<tr>
+<td>Config needed</td>
+<td>Minimal</td>
+<td>Hidden (ejectable)</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Actively maintained</td>
+<td>Deprecated as of 2023</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>3. Configuration Files</h2>
+<h3>3.1 <code>package.json</code></h3>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;univenture&quot;,          // Project name — used by npm
+  &quot;private&quot;: true,               // Prevents accidental publish to npm
+  &quot;version&quot;: &quot;0.0.0&quot;,            // Semantic versioning
+  &quot;type&quot;: &quot;module&quot;,              // Enables ES Modules (import/export instead of require)
+  &quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;vite&quot;,               // Starts dev server → npm run dev
+    &quot;build&quot;: &quot;vite build&quot;,       // Creates production bundle → dist/
+    &quot;lint&quot;: &quot;eslint .&quot;,          // Checks code quality
+    &quot;preview&quot;: &quot;vite preview&quot;    // Serves built dist/ locally
+  },
+  &quot;dependencies&quot;: {              // Packages shipped to production
+    &quot;@tailwindcss/vite&quot;: &quot;^4.2.2&quot;,   // Tailwind v4 Vite plugin
+    &quot;lucide-react&quot;: &quot;^1.8.0&quot;,        // SVG icon library
+    &quot;react&quot;: &quot;^19.2.0&quot;,              // React core
+    &quot;react-dom&quot;: &quot;^19.2.0&quot;,          // React DOM renderer
+    &quot;react-router-dom&quot;: &quot;^7.14.0&quot;,   // Client-side routing
+    &quot;tailwindcss&quot;: &quot;^4.2.2&quot;          // Utility CSS framework
+  },
+  &quot;devDependencies&quot;: {            // Only needed during development
+    &quot;@vitejs/plugin-react&quot;: &quot;^5.1.1&quot;,   // Vite&#39;s React support (Fast Refresh)
+    &quot;eslint&quot;: &quot;^9.39.1&quot;,                // Linter
+    &quot;vite&quot;: &quot;^7.3.1&quot;                    // Build tool
+  }
+}
+</code></pre>
+<blockquote>
+<p>[!NOTE]
+The <code>^</code> prefix (e.g., <code>^19.2.0</code>) means &quot;compatible with&quot; — allows minor &amp; patch updates but not major version changes.</p>
+</blockquote>
+<h3>3.2 <code>vite.config.js</code></h3>
+<pre><code class="language-js">import { defineConfig } from &#39;vite&#39;      // Vite&#39;s config helper (type-safe)
+import react from &#39;@vitejs/plugin-react&#39;  // Enables JSX, Fast Refresh
+import tailwindcss from &#39;@tailwindcss/vite&#39; // Tailwind v4 Vite integration
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  // react()       → transforms JSX to JS, enables hot module replacement
+  // tailwindcss() → processes Tailwind utility classes at build time
+})
+</code></pre>
+<h3>3.3 <code>index.html</code></h3>
+<p>This is the <strong>only HTML file</strong> in the entire app. React &quot;takes over&quot; the <code>&lt;div id=&quot;root&quot;&gt;</code>.</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;                    &lt;!-- Character encoding --&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;data:image/svg+xml,...&quot; /&gt;  &lt;!-- Inline SVG favicon (no extra file needed) --&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;  &lt;!-- Responsive --&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;UniVenture — Where college ideas...&quot; /&gt;  &lt;!-- SEO --&gt;
+    &lt;title&gt;UniVenture — Pitch Your Startup&lt;/title&gt;
+
+    &lt;!-- Google Fonts: DM Sans (body), Syne (headings), JetBrains Mono (code/numbers) --&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=DM+Sans...&amp;family=Syne...&amp;family=JetBrains+Mono...&quot; rel=&quot;stylesheet&quot;&gt;
+  &lt;/head&gt;
+  &lt;body class=&quot;bg-[#F8FAFF] text-[#1A1A2E] antialiased&quot;&gt;
+    &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;                &lt;!-- React mounts here --&gt;
+    &lt;script type=&quot;module&quot; src=&quot;/src/main.jsx&quot;&gt;&lt;/script&gt;  &lt;!-- Entry point --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Why <code>type=&quot;module&quot;</code>?</strong> — This tells the browser to treat the script as an ES Module, enabling <code>import</code>/<code>export</code> syntax natively.</p>
+</blockquote>
+<hr>
+<h2>4. Entry Point — main.jsx &amp; App.jsx</h2>
+<h3>4.1 <code>main.jsx</code> — The Bootstrap File</h3>
+<pre><code class="language-jsx">import { StrictMode } from &#39;react&#39;               // 1. Import StrictMode (catches bugs in dev)
+import { createRoot } from &#39;react-dom/client&#39;     // 2. Import the React 18+ renderer
+import { BrowserRouter } from &#39;react-router-dom&#39;  // 3. Import the router wrapper
+import &#39;./index.css&#39;                               // 4. Import global styles
+import App from &#39;./App.jsx&#39;                        // 5. Import the root component
+
+createRoot(document.getElementById(&#39;root&#39;))  // 6. Find &lt;div id=&quot;root&quot;&gt; in index.html
+  .render(                                   // 7. Render the component tree into it
+    &lt;StrictMode&gt;         {/* Enables extra warnings in development */}
+      &lt;BrowserRouter&gt;    {/* Enables &lt;Link&gt;, &lt;Route&gt;, useNavigate, etc. */}
+        &lt;App /&gt;          {/* Your root component */}
+      &lt;/BrowserRouter&gt;
+    &lt;/StrictMode&gt;,
+  )
+</code></pre>
+<p><strong>React Concepts Used:</strong></p>
+<ul>
+<li><strong><code>createRoot</code></strong> — React 18+ API. The old way was <code>ReactDOM.render()</code>.</li>
+<li><strong><code>StrictMode</code></strong> — Runs components twice in dev to detect side effects (no effect in production).</li>
+<li><strong><code>BrowserRouter</code></strong> — Uses HTML5 History API for clean URLs (<code>/explore</code> instead of <code>/#/explore</code>).</li>
+</ul>
+<h3>4.2 <code>App.jsx</code> — The Route Map</h3>
+<pre><code class="language-jsx">import { Routes, Route } from &#39;react-router-dom&#39;;  // Routing components
+import { useEffect } from &#39;react&#39;;                  // Side-effect hook
+import { initData } from &#39;./data/mockStartups&#39;;      // Data initializer
+
+// Import all page components
+import Home from &#39;./pages/Home&#39;;
+import Explore from &#39;./pages/Explore&#39;;
+// ... (6 more imports)
+
+export default function App() {
+  // useEffect runs ONCE after the first render ([] = empty dependency array)
+  useEffect(() =&gt; {
+    initData();   // Seeds localStorage with sample data if not already present
+  }, []);
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-[#F8FAFF] text-[#1A1A2E] font-[DM_Sans]&quot;&gt;
+      &lt;Routes&gt;
+        {/* Each &lt;Route&gt; maps a URL path to a component */}
+        &lt;Route path=&quot;/&quot;            element={&lt;Home /&gt;} /&gt;
+        &lt;Route path=&quot;/explore&quot;     element={&lt;Explore /&gt;} /&gt;
+        &lt;Route path=&quot;/pitch/:id&quot;   element={&lt;PitchDetail /&gt;} /&gt;   {/* :id = dynamic parameter */}
+        &lt;Route path=&quot;/submit&quot;      element={&lt;SubmitPitch /&gt;} /&gt;
+        &lt;Route path=&quot;/profile/:id&quot; element={&lt;Profile /&gt;} /&gt;       {/* :id = dynamic parameter */}
+        &lt;Route path=&quot;/dashboard&quot;   element={&lt;Dashboard /&gt;} /&gt;
+        &lt;Route path=&quot;/login&quot;       element={&lt;Login /&gt;} /&gt;
+        &lt;Route path=&quot;/signup&quot;      element={&lt;Signup /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p><strong>React Concepts Used:</strong></p>
+<ul>
+<li><strong><code>useEffect</code></strong> — Runs side effects (data fetching, subscriptions, etc.) after render</li>
+<li><strong><code>Routes</code> / <code>Route</code></strong> — Declarative routing; only the matching route renders</li>
+<li><strong>Dynamic segments (<code>:id</code>)</strong> — The <code>:id</code> in <code>/pitch/:id</code> captures a URL parameter. Accessed via <code>useParams()</code> in the child component.</li>
+</ul>
+<hr>
+<h2>5. Global Styles — index.css</h2>
+<p>This file defines the <strong>design system</strong> for the entire app.</p>
+<h3>Key Sections</h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@import &quot;tailwindcss&quot;</code></td>
+<td>Loads Tailwind v4&#39;s base, components, and utilities</td>
+</tr>
+<tr>
+<td><code>@theme { ... }</code></td>
+<td>Defines custom design tokens (colors, fonts, animations)</td>
+</tr>
+<tr>
+<td><code>@keyframes</code> (15+ animations)</td>
+<td>Custom CSS animations for float, pulse, fade, slide, bounce, confetti, etc.</td>
+</tr>
+<tr>
+<td>Base Styles</td>
+<td>Scroll behavior, font smoothing, custom scrollbar</td>
+</tr>
+<tr>
+<td>Utility Classes</td>
+<td><code>.grid-pattern</code>, <code>.glass</code>, <code>.card-premium</code>, <code>.btn-ripple</code>, <code>.shimmer</code>, <code>.text-gradient</code>, etc.</td>
+</tr>
+</tbody></table>
+<h3>Design Tokens (in <code>@theme</code>)</h3>
+<pre><code class="language-css">@theme {
+  --color-violet: #6C63FF;   /* Primary brand color */
+  --color-cyan: #00B4D8;     /* Secondary accent */
+  --color-success: #10B981;  /* Green for success states */
+  --color-warning: #F59E0B;  /* Amber for warnings */
+  --color-danger: #EF4444;   /* Red for errors */
+  --font-syne: &#39;Syne&#39;;       /* Bold headings */
+  --font-dm: &#39;DM Sans&#39;;      /* Body text */
+  --font-mono: &#39;JetBrains Mono&#39;; /* Numbers, code */
+}
+</code></pre>
+<h3>Notable CSS Techniques</h3>
+<ol>
+<li><strong>Gradient text</strong>: Uses <code>background-clip: text</code> to make text appear as a gradient</li>
+<li><strong>Glassmorphism (<code>.glass</code>)</strong>: <code>backdrop-filter: blur(20px)</code> creates frosted glass</li>
+<li><strong>Gradient border (<code>.gradient-border</code>)</strong>: Uses CSS mask trick to show gradient only on borders</li>
+<li><strong>Mask composite</strong>: <code>-webkit-mask-composite: xor</code> excludes the content area from the border mask</li>
+<li><strong>Stagger animations</strong>: <code>.stagger-1</code> through <code>.stagger-6</code> add incremental delays</li>
+</ol>
+<hr>
+<h2>6. Data Layer — mockStartups.js</h2>
+<p>This is the <strong>data backbone</strong> of the app. Since there&#39;s no backend server, all data lives in <code>localStorage</code>.</p>
+<h3>Constants Exported</h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>DOMAINS</code></td>
+<td>Array of <code>{name, icon, color}</code></td>
+<td>The 6 startup categories</td>
+</tr>
+<tr>
+<td><code>ROLE_OPTIONS</code></td>
+<td>Array of strings</td>
+<td>Roles like Developer, Designer, etc.</td>
+</tr>
+<tr>
+<td><code>MARKET_SIZES</code></td>
+<td>Array of strings</td>
+<td><code>&lt;₹10Cr</code>, <code>₹10-100Cr</code>, <code>₹100Cr+</code></td>
+</tr>
+<tr>
+<td><code>FUNDING_TYPES</code></td>
+<td>Array of strings</td>
+<td>Equity, Grant, Revenue Share</td>
+</tr>
+<tr>
+<td><code>REVENUE_MODELS</code></td>
+<td>Array of strings</td>
+<td>SaaS, Freemium, Commission, etc.</td>
+</tr>
+<tr>
+<td><code>SAMPLE_STARTUPS</code></td>
+<td>Array of 12 objects</td>
+<td>Pre-built startup data</td>
+</tr>
+<tr>
+<td><code>DEFAULT_USER</code></td>
+<td>Object</td>
+<td>Default logged-in user profile</td>
+</tr>
+<tr>
+<td><code>SAMPLE_REQUESTS</code></td>
+<td>Array</td>
+<td>Collaboration requests</td>
+</tr>
+<tr>
+<td><code>SAMPLE_ACTIVITY</code></td>
+<td>Array</td>
+<td>Activity feed items</td>
+</tr>
+</tbody></table>
+<h3>Startup Object Shape</h3>
+<pre><code class="language-js">{
+  id: &#39;startup-001&#39;,              // Unique identifier
+  title: &#39;EduBot AI&#39;,             // Startup name
+  tagline: &#39;...&#39;,                  // One-liner description
+  domain: &#39;EdTech&#39;,               // Category
+  tags: [&#39;AI&#39;, &#39;B2C&#39;],            // Searchable tags
+  problem: &#39;...&#39;,                  // Problem statement
+  solution: &#39;...&#39;,                 // Solution description
+  market: &#39;...&#39;,                   // Target market
+  traction: &#39;...&#39;,                 // Current progress
+  fundingAsk: 2000000,            // Amount in ₹
+  fundingType: &#39;Equity&#39;,          // Type of funding
+  marketSize: &#39;₹100Cr+&#39;,          // Market size bracket
+  revenueModel: &#39;Freemium&#39;,       // How they make money
+  votes: 127,                     // Community votes
+  views: 892,                     // Page views
+  comments: [{ id, author, text, date }],  // Comments array
+  saves: 45,                      // Number of saves
+  rolesNeeded: [&#39;Developer&#39;],     // Open positions
+  founders: [{ name, college, role }],  // Team members
+  contactEmail: &#39;...&#39;,            // Contact info
+  demoVideo: &#39;https://...&#39;,       // YouTube embed URL
+  postedAt: &#39;2024-01-15T10:30:00Z&#39;,  // ISO date
+  isTrending: true                // Whether it&#39;s trending
+}
+</code></pre>
+<h3>CRUD Functions</h3>
+<pre><code class="language-js">// INITIALIZE — Seeds data with version control
+export function initData() {
+  const DATA_VERSION = &#39;v4-refined-ui&#39;;
+  // If version doesn&#39;t match, re-seed data (ensures updates propagate)
+  if (localStorage.getItem(&#39;uv_version&#39;) !== DATA_VERSION) {
+    localStorage.setItem(&#39;uv_startups&#39;, JSON.stringify(SAMPLE_STARTUPS));
+    localStorage.setItem(&#39;uv_user&#39;, JSON.stringify(DEFAULT_USER));
+    // ... more seeds
+    localStorage.setItem(&#39;uv_version&#39;, DATA_VERSION);
+  }
+}
+
+// READ — Get data from localStorage, fallback to defaults
+export function getStartups() {
+  const data = localStorage.getItem(&#39;uv_startups&#39;);
+  return data ? JSON.parse(data) : SAMPLE_STARTUPS;
+}
+
+// WRITE — Save data to localStorage
+export function saveStartups(startups) {
+  localStorage.setItem(&#39;uv_startups&#39;, JSON.stringify(startups));
+}
+</code></pre>
+<blockquote>
+<p>[!TIP]
+<strong>Version control pattern</strong>: <code>DATA_VERSION</code> ensures that when you update mock data, old cached data in users&#39; browsers gets replaced.</p>
+</blockquote>
+<hr>
+<h2>7. Custom Hooks — useLocalStorage.js</h2>
+<pre><code class="language-js">import { useState, useEffect } from &#39;react&#39;;
+
+export function useLocalStorage(key, initialValue) {
+  // 1. LAZY INITIALIZATION: The function inside useState runs ONCE
+  //    It checks localStorage first, falls back to initialValue
+  const [value, setValue] = useState(() =&gt; {
+    try {
+      const stored = localStorage.getItem(key);
+      return stored ? JSON.parse(stored) : initialValue;
+    } catch {
+      return initialValue;  // If JSON parsing fails, use default
+    }
+  });
+
+  // 2. SYNC TO STORAGE: Whenever value OR key changes, persist it
+  useEffect(() =&gt; {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // Storage full or unavailable — fail silently
+    }
+  }, [key, value]);  // Dependency array: runs when key or value changes
+
+  // 3. Return EXACTLY the same API as useState: [value, setter]
+  return [value, setValue];
+}
+</code></pre>
+<p><strong>React Concept — Custom Hooks:</strong></p>
+<ul>
+<li>A custom hook is a <strong>function that starts with <code>use</code></strong> and calls other hooks</li>
+<li>It lets you <strong>extract and reuse stateful logic</strong> across multiple components</li>
+<li>This hook works like <code>useState</code> but <strong>automatically persists to localStorage</strong></li>
+</ul>
+<hr>
+<h2>8. Utility Functions — helpers.js</h2>
+<h3><code>generateId()</code> — Unique ID Generator</h3>
+<pre><code class="language-js">export function generateId() {
+  return &#39;startup-&#39; + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  // e.g., &quot;startup-m5x3k7f9a2b1&quot;
+  // Date.now().toString(36) → converts timestamp to base-36 (compact)
+  // Math.random()... → adds 4 random characters for uniqueness
+}
+</code></pre>
+<h3><code>getAvatarColor(name)</code> — Deterministic Color from Name</h3>
+<pre><code class="language-js">export function getAvatarColor(name) {
+  let hash = 0;
+  for (let i = 0; i &lt; name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash &lt;&lt; 5) - hash);
+    // charCodeAt gives ASCII code; bit-shifting creates spread
+  }
+  const hue = Math.abs(hash % 360);  // Map to 0–360 (color wheel)
+  return `hsl(${hue}, 65%, 55%)`;    // HSL gives vibrant, consistent colors
+}
+</code></pre>
+<blockquote>
+<p>[!TIP]
+<strong>Why HSL?</strong> — By fixing saturation (65%) and lightness (55%), we guarantee every color is vibrant and readable. Only the hue varies, ensuring visual consistency.</p>
+</blockquote>
+<h3><code>getInitials(name)</code> — Extracts Initials</h3>
+<pre><code class="language-js">export function getInitials(name) {
+  return name
+    .split(&#39; &#39;)           // &quot;Priya Sharma&quot; → [&quot;Priya&quot;, &quot;Sharma&quot;]
+    .map(n =&gt; n[0])       // → [&quot;P&quot;, &quot;S&quot;]
+    .join(&#39;&#39;)             // → &quot;PS&quot;
+    .toUpperCase()        // → &quot;PS&quot;
+    .slice(0, 2);         // Max 2 characters
+}
+</code></pre>
+<h3><code>formatFunding(amount)</code> — Indian Currency Formatting</h3>
+<pre><code class="language-js">export function formatFunding(amount) {
+  if (amount &gt;= 10000000) return `₹${(amount / 10000000).toFixed(1)}Cr`;  // Crores
+  if (amount &gt;= 100000) return `₹${(amount / 100000).toFixed(0)}L`;       // Lakhs
+  if (amount &gt;= 1000) return `₹${(amount / 1000).toFixed(0)}K`;           // Thousands
+  return `₹${amount}`;
+}
+// formatFunding(2000000) → &quot;₹20L&quot;
+// formatFunding(10000000) → &quot;₹1.0Cr&quot;
+</code></pre>
+<h3><code>timeAgo(dateString)</code> — Relative Time</h3>
+<pre><code class="language-js">export function timeAgo(dateString) {
+  const seconds = Math.floor((new Date() - new Date(dateString)) / 1000);
+  const intervals = [
+    { label: &#39;year&#39;, seconds: 31536000 },
+    { label: &#39;month&#39;, seconds: 2592000 },
+    // ... down to &#39;minute&#39;
+  ];
+  for (const interval of intervals) {
+    const count = Math.floor(seconds / interval.seconds);
+    if (count &gt;= 1) return `${count} ${interval.label}${count &gt; 1 ? &#39;s&#39; : &#39;&#39;} ago`;
+  }
+  return &#39;just now&#39;;
+}
+</code></pre>
+<h3><code>getDomainInfo(domain)</code> — Domain Metadata</h3>
+<pre><code class="language-js">export function getDomainInfo(domain) {
+  const DOMAIN_MAP = {
+    &#39;AI/ML&#39;: { color: &#39;#6C63FF&#39;, gradient: &#39;from-violet-500 to-purple-600&#39; },
+    &#39;FinTech&#39;: { color: &#39;#FFB800&#39;, gradient: &#39;from-amber-400 to-orange-500&#39; },
+    // ... 4 more
+  };
+  return DOMAIN_MAP[domain] || { color: &#39;#6C63FF&#39;, gradient: &#39;...&#39; };
+}
+</code></pre>
+<hr>
+<h2>9. Components (Detailed Breakdown)</h2>
+<h3>9.1 Avatar.jsx — Initials-Based Avatar</h3>
+<pre><code class="language-jsx">import { getInitials, getAvatarColor } from &#39;../utils/helpers&#39;;
+
+export default function Avatar({ name, size = &#39;md&#39;, className = &#39;&#39; }) {
+  // 1. Compute initials from name (e.g., &quot;Priya Sharma&quot; → &quot;PS&quot;)
+  const initials = getInitials(name);
+  // 2. Compute a deterministic color (same name = same color always)
+  const color = getAvatarColor(name);
+
+  // 3. Size mapping — different Tailwind classes per size
+  const sizes = {
+    xs: &#39;w-6 h-6 text-[10px]&#39;,    // 24px
+    sm: &#39;w-8 h-8 text-xs&#39;,         // 32px
+    md: &#39;w-10 h-10 text-sm&#39;,       // 40px (default)
+    lg: &#39;w-14 h-14 text-lg&#39;,       // 56px
+    xl: &#39;w-20 h-20 text-2xl&#39;,      // 80px
+    &#39;2xl&#39;: &#39;w-28 h-28 text-4xl&#39;,   // 112px
+  };
+
+  return (
+    &lt;div
+      // className combines: circle shape, flex centering, font, size, custom classes
+      className={`rounded-full flex items-center justify-center font-semibold font-[Syne] text-white shrink-0 ${sizes[size]} ${className}`}
+      style={{ backgroundColor: color }}   // Inline style for dynamic color
+    &gt;
+      {initials}   {/* Display the initials as text */}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p><strong>React Concepts:</strong></p>
+<ul>
+<li><strong>Props with defaults</strong>: <code>size = &#39;md&#39;</code> uses destructuring default values</li>
+<li><strong>Dynamic className</strong>: String interpolation with template literals</li>
+<li><strong>Inline <code>style</code></strong>: Used for truly dynamic values (color computed at runtime)</li>
+</ul>
+<hr>
+<h3>9.2 TagBadge.jsx — Pill-Shaped Tag</h3>
+<pre><code class="language-jsx">export default function TagBadge({ tag, onRemove, className = &#39;&#39; }) {
+  return (
+    &lt;span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-[#6C63FF]/5 text-[#6C63FF] border border-[#6C63FF]/15 ${className}`}&gt;
+      #{tag}
+      {/* Conditional rendering: only show × button if onRemove prop is provided */}
+      {onRemove &amp;&amp; (
+        &lt;button
+          onClick={(e) =&gt; { e.stopPropagation(); onRemove(tag); }}
+          //        ↑ stopPropagation prevents parent&#39;s onClick from firing
+          className=&quot;ml-0.5 text-[#6C63FF]/40 hover:text-[#EF4444] transition-colors&quot;
+        &gt;
+          ×
+        &lt;/button&gt;
+      )}
+    &lt;/span&gt;
+  );
+}
+</code></pre>
+<p><strong>React Concepts:</strong></p>
+<ul>
+<li><strong>Conditional rendering with <code>&amp;&amp;</code></strong>: <code>{onRemove &amp;&amp; (...)}</code> — only renders the button if <code>onRemove</code> is a truthy value (function)</li>
+<li><strong><code>e.stopPropagation()</code></strong> — Prevents event from bubbling up to parent click handlers</li>
+<li><strong>Callback props</strong>: <code>onRemove</code> is a function passed by the parent</li>
+</ul>
+<hr>
+<h3>9.3 StatsBar.jsx — Animated Stat Counters</h3>
+<pre><code class="language-jsx">function AnimatedCounter({ target, suffix = &#39;&#39;, duration = 1500 }) {
+  const [count, setCount] = useState(0);   // Current displayed number
+  const ref = useRef(null);                 // DOM reference for Intersection Observer
+  const hasAnimated = useRef(false);        // Prevents re-animating
+
+  useEffect(() =&gt; {
+    // IntersectionObserver watches when the element enters the viewport
+    const observer = new IntersectionObserver(
+      ([entry]) =&gt; {
+        if (entry.isIntersecting &amp;&amp; !hasAnimated.current) {
+          hasAnimated.current = true;   // Only animate once
+          animateCount();
+        }
+      },
+      { threshold: 0.3 }   // Trigger when 30% visible
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () =&gt; observer.disconnect();   // Cleanup on unmount
+  }, [target]);
+
+  function animateCount() {
+    const startTime = Date.now();
+    const step = () =&gt; {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);   // 0 → 1
+      const eased = 1 - Math.pow(1 - progress, 3);        // Ease-out cubic
+      setCount(Math.floor(eased * target));                // Update counter
+      if (progress &lt; 1) requestAnimationFrame(step);       // Continue if not done
+    };
+    requestAnimationFrame(step);   // Start animation loop
+  }
+
+  return (
+    &lt;span ref={ref} className=&quot;font-[Syne] text-3xl md:text-4xl font-bold text-gradient tabular-nums&quot;&gt;
+      {count}{suffix}
+    &lt;/span&gt;
+  );
+}
+</code></pre>
+<p><strong>React Concepts:</strong></p>
+<ul>
+<li><strong><code>useRef</code></strong> — Two uses here: (1) DOM reference for IntersectionObserver, (2) mutable <code>hasAnimated</code> flag that survives re-renders without causing them</li>
+<li><strong><code>useRef</code> vs <code>useState</code></strong> — <code>useRef</code> doesn&#39;t trigger re-renders when changed; <code>useState</code> does</li>
+<li><strong><code>IntersectionObserver</code></strong> — Browser API to detect when elements enter/leave the viewport</li>
+<li><strong><code>requestAnimationFrame</code></strong> — Schedules smooth animations synced to the display refresh rate</li>
+</ul>
+<hr>
+<h3>9.4 VoteButton.jsx — Animated Upvote with Burst Particles</h3>
+<p>This is the most <strong>complex interactive component</strong>. Let&#39;s break it down:</p>
+<pre><code class="language-jsx">export default function VoteButton({ pitchId, initialVotes, onVoteChange, size = &#39;md&#39; }) {
+  const [votes, setVotes] = useState(initialVotes);       // Current vote count
+  const [hasVoted, setHasVoted] = useState(false);         // Has current user voted?
+  const [animating, setAnimating] = useState(false);       // Is the scale animation playing?
+  const [particles, setParticles] = useState([]);          // Burst particle data
+
+  // Check localStorage on mount to see if user already voted
+  useEffect(() =&gt; {
+    const user = getUser();
+    setHasVoted(user.votedStartups?.includes(pitchId) || false);
+  }, [pitchId]);
+
+  function handleVote(e) {
+    e.preventDefault();       // Prevent &lt;Link&gt; navigation
+    e.stopPropagation();      // Prevent card click
+
+    const user = getUser();
+    const startups = getStartups();
+    const idx = startups.findIndex(s =&gt; s.id === pitchId);
+    if (idx === -1) return;
+
+    setAnimating(true);
+    setTimeout(() =&gt; setAnimating(false), 600);   // Reset after animation
+
+    if (hasVoted) {
+      // UN-VOTE: decrement and remove from user&#39;s list
+      startups[idx].votes = Math.max(0, startups[idx].votes - 1);
+      user.votedStartups = (user.votedStartups || []).filter(id =&gt; id !== pitchId);
+      setVotes(startups[idx].votes);
+      setHasVoted(false);
+    } else {
+      // VOTE: increment and add to user&#39;s list
+      startups[idx].votes += 1;
+      user.votedStartups = [...(user.votedStartups || []), pitchId];
+      setVotes(startups[idx].votes);
+      setHasVoted(true);
+      // Spawn &quot;+1&quot; particles that float upward and fade
+      const newParticles = Array.from({ length: 4 }, (_, i) =&gt; ({
+        id: Date.now() + i,
+        x: (Math.random() - 0.5) * 50,        // Random horizontal offset
+        y: -(Math.random() * 30 + 10),         // Negative = upward
+        text: &#39;+1&#39;
+      }));
+      setParticles(newParticles);
+      setTimeout(() =&gt; setParticles([]), 700);  // Clear after animation
+    }
+
+    saveStartups(startups);   // Persist to localStorage
+    saveUser(user);
+    if (onVoteChange) onVoteChange(startups[idx].votes);  // Notify parent
+  }
+
+  // ... render with dynamic classes based on hasVoted, animating, size
+}
+</code></pre>
+<p><strong>React Concepts:</strong></p>
+<ul>
+<li><strong>Toggle state pattern</strong>: Click toggles between voted/not-voted</li>
+<li><strong>Optimistic UI</strong>: UI updates immediately, localStorage is synced after</li>
+<li><strong>Particle animation</strong>: Short-lived state that gets cleared by <code>setTimeout</code></li>
+<li><strong>Callback prop</strong>: <code>onVoteChange</code> lets parent know the new count</li>
+</ul>
+<hr>
+<h3>9.5 FilterBar.jsx — Search, Sort, and Filter</h3>
+<pre><code class="language-jsx">export default function FilterBar({
+  // 10 props — all state + setters are passed from the parent (Explore page)
+  searchQuery, setSearchQuery,
+  activeDomain, setActiveDomain,
+  sortBy, setSortBy,
+  roleFilter, setRoleFilter,
+  totalCount, filteredCount
+}) {
+  return (
+    &lt;div className=&quot;sticky top-16 z-40 bg-white/80 backdrop-blur-2xl border-b ...&quot;&gt;
+      {/* SEARCH INPUT with icon */}
+      &lt;div className=&quot;relative flex-1&quot;&gt;
+        &lt;Search size={16} className=&quot;absolute left-3.5 top-1/2 -translate-y-1/2 ...&quot; /&gt;
+        &lt;input
+          value={searchQuery}
+          onChange={e =&gt; setSearchQuery(e.target.value)}  // Controlled input
+          placeholder=&quot;Search startups, tags, ideas...&quot;
+          className=&quot;w-full pl-10 ...&quot;
+        /&gt;
+      &lt;/div&gt;
+
+      {/* SORT DROPDOWN */}
+      &lt;select value={sortBy} onChange={e =&gt; setSortBy(e.target.value)}&gt;
+        {SORT_OPTIONS.map(opt =&gt; (
+          &lt;option key={opt.value} value={opt.value}&gt;{opt.label}&lt;/option&gt;
+        ))}
+      &lt;/select&gt;
+
+      {/* DOMAIN PILLS — Horizontal scrollable buttons */}
+      &lt;button onClick={() =&gt; setActiveDomain(&#39;All&#39;)}
+        className={activeDomain === &#39;All&#39; ? &#39;active-style&#39; : &#39;inactive-style&#39;}&gt;
+        All
+      &lt;/button&gt;
+      {DOMAINS.map(domain =&gt; (
+        &lt;button key={domain.name} onClick={() =&gt; setActiveDomain(domain.name)}
+          style={activeDomain === domain.name ? { background: domain.color } : {}}&gt;
+          {domain.name}
+        &lt;/button&gt;
+      ))}
+
+      {/* COUNT DISPLAY */}
+      &lt;span&gt;{filteredCount} of {totalCount}&lt;/span&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p><strong>React Concepts:</strong></p>
+<ul>
+<li><strong>Controlled components</strong>: Input&#39;s <code>value</code> is tied to state; <code>onChange</code> updates it</li>
+<li><strong>Lifting state up</strong>: All filter state lives in the parent (Explore.jsx); FilterBar just displays and modifies it via setter functions</li>
+<li><strong>List rendering with <code>.map()</code></strong>: Arrays rendered with unique <code>key</code> props</li>
+</ul>
+<hr>
+<h3>9.6 StartupCard.jsx — The Main Card Component</h3>
+<p>This renders a single startup as a card. Key features:</p>
+<ul>
+<li><strong>Bookmark/save toggle</strong>: Click to save/unsave, persisted to localStorage</li>
+<li><strong>Domain badge</strong>: Color-coded by domain</li>
+<li><strong>Trending indicator</strong>: Fire icon for trending startups</li>
+<li><strong>Founder avatars</strong>: Stacked overlapping circles</li>
+<li><strong>Vote button</strong>: Inline upvote</li>
+<li><strong>Hover effects</strong>: Card lifts, title changes color, arrow appears</li>
+</ul>
+<p><strong>React Concepts:</strong></p>
+<ul>
+<li><strong>Lazy initial state</strong>: <code>useState(() =&gt; { ... })</code> — the function runs once to compute the initial value</li>
+<li><strong>Event delegation</strong>: <code>e.preventDefault()</code> and <code>e.stopPropagation()</code> prevent card navigation when clicking the save button</li>
+<li><strong>Conditional rendering</strong>: <code>{!compact &amp;&amp; ...}</code> — hides tags and funding in compact mode</li>
+<li><strong>Component composition</strong>: Uses <code>Avatar</code>, <code>TagBadge</code>, and <code>VoteButton</code> as children</li>
+</ul>
+<hr>
+<h3>9.7 Navbar.jsx — Sticky Navigation with Auth State</h3>
+<p>Key features:</p>
+<ul>
+<li><strong>Scroll detection</strong>: Background changes from transparent to frosted white</li>
+<li><strong>Auth-aware</strong>: Shows Log In/Sign Up when not authenticated, My Profile/Log Out when authenticated</li>
+<li><strong>Mobile responsive</strong>: Hamburger menu on small screens</li>
+<li><strong>Active link indicator</strong>: Gradient underline on current page</li>
+</ul>
+<pre><code class="language-jsx">export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);     // Has user scrolled?
+  const [menuOpen, setMenuOpen] = useState(false);      // Mobile menu open?
+  const [auth, setAuth] = useState(null);               // Auth data from localStorage
+  const location = useLocation();                        // Current URL
+  const navigate = useNavigate();                        // Programmatic navigation
+
+  // SCROLL LISTENER — Updates background style
+  useEffect(() =&gt; {
+    function onScroll() {
+      setScrolled(window.scrollY &gt; 30);
+    }
+    window.addEventListener(&#39;scroll&#39;, onScroll);
+    return () =&gt; window.removeEventListener(&#39;scroll&#39;, onScroll);  // CLEANUP
+  }, []);
+
+  // ON NAVIGATION — Close mobile menu, refresh auth state
+  useEffect(() =&gt; {
+    setMenuOpen(false);
+    const authData = localStorage.getItem(&#39;uv_auth&#39;);
+    setAuth(authData ? JSON.parse(authData) : null);
+  }, [location]);   // Runs whenever URL changes
+
+  // LOGOUT — Clear auth, redirect to home
+  function handleLogout() {
+    localStorage.removeItem(&#39;uv_auth&#39;);
+    setAuth(null);
+    navigate(&#39;/&#39;);
+  }
+  // ... render
+}
+</code></pre>
+<p><strong>React Concepts:</strong></p>
+<ul>
+<li><strong><code>useLocation</code></strong> — Returns the current URL object. Reacting to route changes.</li>
+<li><strong><code>useNavigate</code></strong> — Returns a function for programmatic navigation (<code>navigate(&#39;/&#39;)</code>)</li>
+<li><strong>Cleanup function in useEffect</strong> — <code>return () =&gt; window.removeEventListener(...)</code> prevents memory leaks</li>
+<li><strong>Responsive design pattern</strong>: <code>hidden md:flex</code> (Tailwind) hides on mobile, shows on desktop</li>
+</ul>
+<hr>
+<h3>9.8 Footer.jsx — Site Footer with Custom SVG Icons</h3>
+<ul>
+<li>Defines <code>GithubIcon</code>, <code>TwitterIcon</code>, <code>LinkedinIcon</code> as inline SVG components</li>
+<li>Uses <code>&lt;Link&gt;</code> for internal routes, <code>&lt;a&gt;</code> for external links</li>
+<li>Four-column grid layout on desktop, stacked on mobile</li>
+</ul>
+<hr>
+<h2>10. Pages (Detailed Breakdown)</h2>
+<h3>10.1 Home.jsx — Landing Page</h3>
+<p><strong>Sections:</strong></p>
+<ol>
+<li><strong>Hero</strong> — Full-screen intro with animated blobs, gradient text, CTA buttons, stats</li>
+<li><strong>Trending</strong> — Horizontal scrollable cards of trending startups</li>
+<li><strong>Domains</strong> — 6-card grid linking to filtered explore page</li>
+<li><strong>How It Works</strong> — 4-step process (Submit → Feedback → Team → Launch)</li>
+<li><strong>CTA</strong> — Gradient banner encouraging pitch submission</li>
+</ol>
+<p><strong>Custom Hook — <code>useInView</code>:</strong></p>
+<pre><code class="language-jsx">function useInView(options = {}) {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() =&gt; {
+    const observer = new IntersectionObserver(([entry]) =&gt; {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.disconnect();   // Stop watching after first appearance
+      }
+    }, { threshold: 0.1, ...options });
+    if (ref.current) observer.observe(ref.current);
+    return () =&gt; observer.disconnect();
+  }, []);
+  return [ref, isVisible];   // Attach ref to element, check isVisible
+}
+</code></pre>
+<p><strong>Usage:</strong></p>
+<pre><code class="language-jsx">const [trendingRef, trendingVisible] = useInView();
+// ...
+&lt;section ref={trendingRef}&gt;
+  &lt;div className={trendingVisible ? &#39;animate-fade-up&#39; : &#39;opacity-0&#39;}&gt;
+    {/* Cards animate in when scrolled into view */}
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p><strong>Techniques:</strong></p>
+<ul>
+<li><strong>Staggered animations</strong>: <code>animationDelay: ${i * 0.08}s</code> — each card appears slightly after the previous</li>
+<li><strong>Dynamic stats</strong>: <code>startups.length * 40</code> calculates a dynamic number</li>
+<li><strong>SVG underline</strong>: Inline SVG with <code>linearGradient</code> creates the wavy underline under &quot;College Ideas&quot;</li>
+</ul>
+<hr>
+<h3>10.2 Explore.jsx — Browse &amp; Filter Startups</h3>
+<pre><code class="language-jsx">export default function Explore() {
+  const [searchParams] = useSearchParams();  // Read URL query params
+  const [startups, setStartups] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(searchParams.get(&#39;search&#39;) || &#39;&#39;);
+  const [activeDomain, setActiveDomain] = useState(searchParams.get(&#39;domain&#39;) || &#39;All&#39;);
+  const [sortBy, setSortBy] = useState(&#39;votes&#39;);
+  const [roleFilter, setRoleFilter] = useState(&#39;All&#39;);
+
+  useEffect(() =&gt; {
+    setStartups(getStartups());   // Load from localStorage
+  }, []);
+
+  // CLIENT-SIDE FILTERING — Chain of .filter().sort()
+  const filtered = startups
+    .filter(s =&gt; {
+      const matchesDomain = activeDomain === &#39;All&#39; || s.domain === activeDomain;
+      const query = searchQuery.toLowerCase();
+      const matchesSearch = !searchQuery ||
+        s.title.toLowerCase().includes(query) ||
+        s.tagline.toLowerCase().includes(query) ||
+        s.tags.some(t =&gt; t.toLowerCase().includes(query));  // Search across tags too
+      // ... role filter
+      return matchesDomain &amp;&amp; matchesSearch &amp;&amp; matchesRole;
+    })
+    .sort((a, b) =&gt; {
+      if (sortBy === &#39;votes&#39;) return b.votes - a.votes;
+      if (sortBy === &#39;newest&#39;) return new Date(b.postedAt) - new Date(a.postedAt);
+      // ... more sort options
+    });
+
+  return (
+    &lt;div&gt;
+      &lt;FilterBar /* ...pass all state as props */ /&gt;
+      {filtered.length &gt; 0 ? (
+        &lt;div className=&quot;grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5&quot;&gt;
+          {filtered.map((startup, i) =&gt; (
+            &lt;StartupCard key={startup.id} startup={startup} /&gt;
+          ))}
+        &lt;/div&gt;
+      ) : (
+        &lt;div&gt;No startups found&lt;/div&gt;   {/* Empty state */}
+      )}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p><strong>React Concepts:</strong></p>
+<ul>
+<li><strong><code>useSearchParams</code></strong> — Reads URL query parameters (<code>?domain=AI/ML</code>)</li>
+<li><strong>Derived state</strong> — <code>filtered</code> is computed from state, NOT stored as state itself (avoids sync bugs)</li>
+<li><strong>Conditional rendering</strong> — Ternary operator for empty state</li>
+</ul>
+<hr>
+<h3>10.3 PitchDetail.jsx — Full Startup Detail Page</h3>
+<p>The most <strong>feature-rich page</strong> (426 lines). Key elements:</p>
+<ol>
+<li><strong>Dynamic routing</strong>: <code>const { id } = useParams()</code> extracts startup ID from URL</li>
+<li><strong>View counter</strong>: Increments <code>views</code> on mount and saves to localStorage</li>
+<li><strong>Tab system</strong>: Pitch ↔ Demo ↔ Team ↔ Deck ↔ Comments</li>
+<li><strong>Comment system</strong>: Form + list, persisted to localStorage</li>
+<li><strong>Save/Share/Contact</strong>: Action buttons with micro-animations</li>
+<li><strong>Toast notifications</strong>: Temporary messages that auto-dismiss</li>
+<li><strong>Related startups</strong>: Shows other startups from the same domain</li>
+<li><strong>Sidebar</strong>: Stats, funding info, role applications</li>
+</ol>
+<p><strong>Toast Pattern:</strong></p>
+<pre><code class="language-jsx">const [toast, setToast] = useState(null);
+
+function showToast(message, type = &#39;success&#39;) {
+  setToast({ message, type });
+  setTimeout(() =&gt; setToast(null), 3000);   // Auto-dismiss after 3s
+}
+
+// In JSX:
+{toast &amp;&amp; (
+  &lt;div className=&quot;fixed top-20 right-4 z-50 ... toast-enter&quot;&gt;
+    {toast.message}
+  &lt;/div&gt;
+)}
+</code></pre>
+<p><strong>Helper Component — <code>PitchSection</code>:</strong></p>
+<pre><code class="language-jsx">function PitchSection({ title, content }) {
+  return (
+    &lt;div&gt;
+      &lt;h3 className=&quot;font-[Syne] ...&quot;&gt;
+        &lt;span className=&quot;bg-gradient-to-r ... bg-clip-text text-transparent&quot;&gt;{title}&lt;/span&gt;
+      &lt;/h3&gt;
+      &lt;p className=&quot;text-[#6B7280] leading-relaxed&quot;&gt;{content}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<hr>
+<h3>10.4 SubmitPitch.jsx — Multi-Step Form</h3>
+<p>A <strong>3-step wizard</strong> for submitting a new pitch.</p>
+<p><strong>Step 1: The Idea</strong> — Title, tagline, domain, problem, solution, tags<br><strong>Step 2: The Business</strong> — Market, funding, traction, revenue model<br><strong>Step 3: The Team</strong> — Founder info, roles needed, demo video, contact</p>
+<p><strong>Key Patterns:</strong></p>
+<ol>
+<li><strong>Form state as single object:</strong></li>
+</ol>
+<pre><code class="language-jsx">const [form, setForm] = useState({
+  title: &#39;&#39;, tagline: &#39;&#39;, domain: &#39;&#39;, problem: &#39;&#39;, solution: &#39;&#39;, tags: [],
+  market: &#39;&#39;, marketSize: &#39;&#39;, fundingAsk: &#39;&#39;, fundingType: &#39;Equity&#39;,
+  // ... 15+ fields
+});
+</code></pre>
+<ol start="2">
+<li><strong>Generic field updater:</strong></li>
+</ol>
+<pre><code class="language-jsx">function updateField(name, value) {
+  setForm(prev =&gt; ({ ...prev, [name]: value }));
+  //                  ↑ spread operator preserves all other fields
+  //                        ↑ computed property name
+  if (errors[name]) setErrors(prev =&gt; ({ ...prev, [name]: &#39;&#39; }));
+  //                 ↑ clear error when user starts typing
+}
+</code></pre>
+<ol start="3">
+<li><strong>Tag input with keyboard events:</strong></li>
+</ol>
+<pre><code class="language-jsx">function handleTagKeyDown(e) {
+  if ((e.key === &#39;,&#39; || e.key === &#39;Enter&#39;) &amp;&amp; tagInput.trim()) {
+    e.preventDefault();   // Prevent form submission on Enter
+    const tag = tagInput.trim().replace(/,/g, &#39;&#39;);
+    if (tag &amp;&amp; !form.tags.includes(tag) &amp;&amp; form.tags.length &lt; 5) {
+      updateField(&#39;tags&#39;, [...form.tags, tag]);
+    }
+    setTagInput(&#39;&#39;);
+  }
+}
+</code></pre>
+<ol start="4">
+<li><strong>Step validation:</strong></li>
+</ol>
+<pre><code class="language-jsx">function validateStep(s) {
+  const errs = {};
+  if (s === 1) {
+    if (!form.title.trim()) errs.title = &#39;Required&#39;;
+    // ... more checks
+  }
+  setErrors(errs);
+  return Object.keys(errs).length === 0;   // true if no errors
+}
+</code></pre>
+<ol start="5">
+<li><strong>YouTube URL conversion:</strong></li>
+</ol>
+<pre><code class="language-jsx">function convertToEmbed(url) {
+  if (url.includes(&#39;/embed/&#39;)) return url;   // Already embed
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/);
+  if (match) return `https://www.youtube.com/embed/${match[1]}`;
+  if (url.includes(&#39;loom.com/share/&#39;)) return url.replace(&#39;/share/&#39;, &#39;/embed/&#39;);
+  return url;
+}
+</code></pre>
+<ol start="6">
+<li><strong>Success animation with confetti:</strong></li>
+</ol>
+<pre><code class="language-jsx">{showSuccess &amp;&amp; (
+  &lt;div className=&quot;fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm&quot;&gt;
+    &lt;div className=&quot;... animate-fade-up shadow-2xl&quot;&gt;
+      {/* 12 confetti dots rotating outward */}
+      {[...Array(12)].map((_, i) =&gt; (
+        &lt;div key={i} className=&quot;absolute w-2 h-2 rounded-full animate-confetti&quot;
+          style={{
+            backgroundColor: [&#39;#6C63FF&#39;, &#39;#00B4D8&#39;, &#39;#F59E0B&#39;, &#39;#EF4444&#39;, &#39;#10B981&#39;][i % 5],
+            transform: `rotate(${i * 30}deg) translateY(-60px)`,
+            animationDelay: `${i * 0.05}s`
+          }} /&gt;
+      ))}
+      &lt;Check size={32} className=&quot;text-[#10B981]&quot; /&gt;
+      &lt;h2&gt;Pitch Submitted!&lt;/h2&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+)}
+</code></pre>
+<ol start="7">
+<li><strong>Inline CSS with <code>&lt;style&gt;</code> tag:</strong></li>
+</ol>
+<pre><code class="language-jsx">&lt;style&gt;{`
+  .field-input {
+    width: 100%; padding: 0.625rem 0.875rem; border-radius: 0.75rem;
+    background: #F9FAFB; border: 1.5px solid #E5E7EB; ...
+  }
+  .field-input:focus { border-color: #6C63FF; ... }
+`}&lt;/style&gt;
+</code></pre>
+<blockquote>
+<p>[!NOTE]
+Inline <code>&lt;style&gt;</code> is used here instead of Tailwind because the same styles are shared across many <code>&lt;input&gt;</code> and <code>&lt;textarea&gt;</code> elements. Creating a <code>.field-input</code> class avoids repeating 30+ Tailwind utilities on each element.</p>
+</blockquote>
+<hr>
+<h3>10.5 Profile.jsx — User Profile Page</h3>
+<ul>
+<li><strong>Cover banner</strong>: Gradient overlay with blur effects</li>
+<li><strong>Avatar</strong>: Offset above the banner with ring</li>
+<li><strong>Social links</strong>: GitHub, LinkedIn, Twitter</li>
+<li><strong>Stats grid</strong>: Pitches, Votes, Teams, Saved</li>
+<li><strong>Tab layout</strong>: &quot;My Pitches&quot; and &quot;Saved&quot;</li>
+<li><strong>Empty states</strong>: Custom <code>Empty</code> component with CTA links</li>
+</ul>
+<p><strong>Profile data loading:</strong></p>
+<pre><code class="language-jsx">useEffect(() =&gt; {
+  const userData = getUser();
+  setUser(userData);
+  const allStartups = getStartups();
+  // Find pitches where this user is a founder
+  setMyPitches(allStartups.filter(s =&gt; s.founders.some(f =&gt; f.name === userData.name)));
+  // Find pitches the user has saved
+  setSavedPitches(allStartups.filter(s =&gt; (userData.savedStartups || []).includes(s.id)));
+}, [id]);   // Re-run when profile ID changes
+</code></pre>
+<hr>
+<h3>10.6 Dashboard.jsx — User Dashboard</h3>
+<ul>
+<li><strong>Greeting</strong>: <code>Hey, {firstName}</code></li>
+<li><strong>Metric cards</strong>: Total Votes, Pitches, Requests, Saved</li>
+<li><strong>Your Pitches list</strong>: With edit and delete actions</li>
+<li><strong>Delete confirmation</strong>: Two-step (click trash → confirm/cancel)</li>
+<li><strong>Collaboration requests</strong>: Accept/decline with status badges</li>
+<li><strong>Activity feed</strong>: Icons mapped from activity type</li>
+</ul>
+<p><strong>Delete confirmation pattern:</strong></p>
+<pre><code class="language-jsx">const [deleteConfirm, setDeleteConfirm] = useState(null);
+
+// In the list:
+{deleteConfirm === pitch.id ? (
+  // Show confirm (✓) and cancel (✕) buttons
+  &lt;div&gt;
+    &lt;button onClick={() =&gt; handleDelete(pitch.id)}&gt;✓&lt;/button&gt;
+    &lt;button onClick={() =&gt; setDeleteConfirm(null)}&gt;✕&lt;/button&gt;
+  &lt;/div&gt;
+) : (
+  // Show trash icon
+  &lt;button onClick={() =&gt; setDeleteConfirm(pitch.id)}&gt;🗑&lt;/button&gt;
+)}
+</code></pre>
+<hr>
+<h3>10.7 Login.jsx — Authentication Page</h3>
+<p><strong>Layout</strong>: Split-screen (branding panel left, form right)</p>
+<p><strong>Login flow:</strong></p>
+<pre><code class="language-jsx">function handleSubmit(e) {
+  e.preventDefault();
+  setLoading(true);
+
+  setTimeout(() =&gt; {   // Simulates API call delay
+    const users = JSON.parse(localStorage.getItem(&#39;uv_all_users&#39;) || &#39;[]&#39;);
+    const found = users.find(u =&gt; u.email === email);
+
+    if (found &amp;&amp; found.password === password) {
+      // Set auth token in localStorage
+      localStorage.setItem(&#39;uv_auth&#39;, JSON.stringify({ loggedIn: true, userId: found.id, role: found.role }));
+      // Set as current user
+      localStorage.setItem(&#39;uv_user&#39;, JSON.stringify(found));
+      // Navigate based on role
+      navigate(found.role === &#39;investor&#39; ? &#39;/dashboard&#39; : &#39;/explore&#39;);
+    } else {
+      // Fallback: try default user
+      setError(&#39;Invalid email or password&#39;);
+    }
+    setLoading(false);
+  }, 800);
+}
+</code></pre>
+<p><strong>Password visibility toggle:</strong></p>
+<pre><code class="language-jsx">&lt;input type={showPassword ? &#39;text&#39; : &#39;password&#39;} ... /&gt;
+&lt;button onClick={() =&gt; setShowPassword(!showPassword)}&gt;
+  {showPassword ? &lt;EyeOff /&gt; : &lt;Eye /&gt;}
+&lt;/button&gt;
+</code></pre>
+<hr>
+<h3>10.8 Signup.jsx — Role-Based Registration</h3>
+<p><strong>Two-step flow:</strong></p>
+<ol>
+<li><strong>Step 1</strong>: Choose role — Student or Investor (card selection UI)</li>
+<li><strong>Step 2</strong>: Fill registration form (different fields per role)</li>
+</ol>
+<p><strong>Role-conditional fields:</strong></p>
+<pre><code class="language-jsx">{role === &#39;student&#39; &amp;&amp; (
+  &lt;div&gt;
+    &lt;label&gt;College / University&lt;/label&gt;
+    &lt;input ... /&gt;
+  &lt;/div&gt;
+)}
+
+{role === &#39;investor&#39; &amp;&amp; (
+  &lt;&gt;
+    &lt;div&gt;&lt;label&gt;Firm&lt;/label&gt;&lt;input ... /&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;label&gt;Investment Range&lt;/label&gt;&lt;select ... /&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;label&gt;Interested Domains&lt;/label&gt;{/* toggle buttons */}&lt;/div&gt;
+  &lt;/&gt;
+)}
+</code></pre>
+<p><strong>Registration handler:</strong></p>
+<pre><code class="language-jsx">function handleSubmit(e) {
+  // 1. Validate required fields
+  // 2. Create new user object
+  // 3. Add to uv_all_users array in localStorage
+  // 4. Set as current user (uv_user)
+  // 5. Set auth token (uv_auth)
+  // 6. Navigate to explore/dashboard based on role
+}
+</code></pre>
+<hr>
+<h2>11. React Concepts Used in This Project</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Concept</th>
+<th>Where Used</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>JSX</strong></td>
+<td>Everywhere</td>
+<td>HTML-like syntax in JavaScript. Compiled to <code>React.createElement()</code> calls.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Components</strong></td>
+<td>All files in <code>components/</code> and <code>pages/</code></td>
+<td>Reusable, independent UI building blocks</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Props</strong></td>
+<td>Avatar, TagBadge, StartupCard, etc.</td>
+<td>Data passed from parent to child (<code>&lt;Avatar name=&quot;Priya&quot; size=&quot;lg&quot; /&gt;</code>)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>State (<code>useState</code>)</strong></td>
+<td>Every interactive component</td>
+<td>Local component data that causes re-renders when changed</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Effects (<code>useEffect</code>)</strong></td>
+<td>App.jsx, Navbar, VoteButton, etc.</td>
+<td>Side effects: data fetching, event listeners, DOM manipulation</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Refs (<code>useRef</code>)</strong></td>
+<td>StatsBar, Home (useInView)</td>
+<td>(1) DOM references for Intersection Observer, (2) Mutable values that persist across renders</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Custom Hooks</strong></td>
+<td><code>useLocalStorage</code>, <code>useInView</code></td>
+<td>Extracting reusable stateful logic into functions</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Client-side Routing</strong></td>
+<td>main.jsx, App.jsx</td>
+<td><code>BrowserRouter</code>, <code>Routes</code>, <code>Route</code>, <code>Link</code>, <code>useParams</code>, <code>useNavigate</code>, <code>useLocation</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Dynamic Routes</strong></td>
+<td><code>/pitch/:id</code>, <code>/profile/:id</code></td>
+<td>URL parameters accessed via <code>useParams()</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Conditional Rendering</strong></td>
+<td>Everywhere</td>
+<td><code>{condition &amp;&amp; &lt;JSX&gt;}</code>, ternary <code>{a ? &lt;X/&gt; : &lt;Y/&gt;}</code></td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>List Rendering</strong></td>
+<td>Explore, FilterBar, Dashboard</td>
+<td><code>.map()</code> with unique <code>key</code> props</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Controlled Forms</strong></td>
+<td>Login, Signup, SubmitPitch</td>
+<td><code>value={state}</code> + <code>onChange={setter}</code> pattern</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Event Handling</strong></td>
+<td>VoteButton, FilterBar, Navbar</td>
+<td><code>onClick</code>, <code>onChange</code>, <code>onSubmit</code>, <code>onKeyDown</code></td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>Lifting State Up</strong></td>
+<td>Explore → FilterBar</td>
+<td>Parent owns state, passes it + setters to child</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>Component Composition</strong></td>
+<td>StartupCard uses Avatar + TagBadge + VoteButton</td>
+<td>Building complex UIs from simple pieces</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>Fragments (<code>&lt;&gt;...&lt;/&gt;</code>)</strong></td>
+<td>Navbar, Signup</td>
+<td>Group multiple elements without adding extra DOM nodes</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>Lazy Initial State</strong></td>
+<td>StartupCard&#39;s <code>useState(() =&gt; ...)</code></td>
+<td>Function runs once on mount (avoids computing on every render)</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>Cleanup Functions</strong></td>
+<td>Navbar scroll listener, IntersectionObserver</td>
+<td><code>useEffect</code> return function prevents memory leaks</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong><code>useNavigate</code></strong></td>
+<td>Login, Signup, SubmitPitch</td>
+<td>Programmatic navigation after form submission</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong><code>useSearchParams</code></strong></td>
+<td>Explore</td>
+<td>Read URL query parameters (<code>?domain=AI/ML</code>)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>12. Future Improvements</h2>
+<h3>🔴 High Priority (Essential)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Improvement</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Real Backend API</strong></td>
+<td>Replace localStorage with a REST API or Firebase/Supabase. Currently all data is client-side and not shared across users. Use <code>fetch()</code> or Axios with proper error handling.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Real Authentication</strong></td>
+<td>Use Firebase Auth, Auth0, or JWT-based auth. Currently passwords are stored in plain text in localStorage — a major security issue.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Database</strong></td>
+<td>Replace localStorage with MongoDB (for Node.js) or PostgreSQL. localStorage has a 5-10MB limit and is browser-specific.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Form Validation Library</strong></td>
+<td>Use React Hook Form + Zod for proper validation. Current validation is manual and doesn&#39;t cover all edge cases (email format, etc.).</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Error Boundaries</strong></td>
+<td>Add React Error Boundaries to catch rendering errors gracefully instead of white-screening.</td>
+</tr>
+</tbody></table>
+<h3>🟡 Medium Priority (Important)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Improvement</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>6</td>
+<td><strong>State Management</strong></td>
+<td>As the app grows, consider Context API or Zustand for shared state (user data, auth status). Currently, each component reads localStorage independently.</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Image Uploads</strong></td>
+<td>Allow founders to upload logos, team photos, and pitch deck images. Use Cloudinary or AWS S3.</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Real-time Features</strong></td>
+<td>WebSocket or Firebase Realtime for live vote counts, notifications, and comments.</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Search with Debouncing</strong></td>
+<td>Add debounce to search input (delay API call until user stops typing). Currently searches on every keystroke.</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Pagination / Infinite Scroll</strong></td>
+<td>With 100+ startups, loading all at once is slow. Implement virtual scrolling or API pagination.</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Protected Routes</strong></td>
+<td>Add auth guards — redirect to <code>/login</code> if unauthenticated users try to access <code>/submit</code> or <code>/dashboard</code>.</td>
+</tr>
+</tbody></table>
+<h3>🟢 Nice to Have (Polish)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Improvement</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12</td>
+<td><strong>Dark Mode</strong></td>
+<td>Add a dark theme toggle. The CSS variables in <code>@theme</code> make this easy — define dark variants.</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Notifications System</strong></td>
+<td>In-app notification bell with real-time updates on votes, comments, and team requests.</td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>Analytics Dashboard</strong></td>
+<td>Charts showing vote trends, view statistics, and engagement over time using Chart.js or Recharts.</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>Email Notifications</strong></td>
+<td>Send emails on new comments, votes, and collaboration requests using SendGrid or similar.</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>Testing</strong></td>
+<td>Add unit tests (Vitest), component tests (Testing Library), and E2E tests (Playwright/Cypress).</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>Accessibility (a11y)</strong></td>
+<td>Add ARIA labels, keyboard navigation, focus management, and screen reader support.</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>PWA Support</strong></td>
+<td>Make the app installable with a Service Worker for offline access.</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>SEO Improvements</strong></td>
+<td>Add React Helmet for dynamic <code>&lt;title&gt;</code> and <code>&lt;meta&gt;</code> tags per page. Consider SSR with Next.js.</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>Internationalization (i18n)</strong></td>
+<td>Multi-language support (Hindi, English, etc.) using react-i18next.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>13. Viva Questions &amp; Answers</h2>
+<h3>Q1: What is React and why did you choose it?</h3>
+<p><strong>A:</strong> React is a JavaScript library for building user interfaces using a <strong>component-based architecture</strong>. I chose it because:</p>
+<ul>
+<li>It uses a <strong>Virtual DOM</strong> for efficient updates</li>
+<li>Components are reusable and composable</li>
+<li>Large ecosystem and community support</li>
+<li>One-way data flow makes debugging predictable</li>
+</ul>
+<h3>Q2: What is JSX?</h3>
+<p><strong>A:</strong> JSX (JavaScript XML) is a syntax extension that lets us write HTML-like code inside JavaScript. It gets compiled at build time to <code>React.createElement()</code> calls. For example:</p>
+<pre><code class="language-jsx">&lt;h1 className=&quot;title&quot;&gt;Hello&lt;/h1&gt;
+// Compiles to:
+React.createElement(&#39;h1&#39;, { className: &#39;title&#39; }, &#39;Hello&#39;)
+</code></pre>
+<h3>Q3: What is the Virtual DOM?</h3>
+<p><strong>A:</strong> The Virtual DOM is a lightweight JavaScript copy of the real DOM. When state changes:</p>
+<ol>
+<li>React creates a new Virtual DOM tree</li>
+<li>It <strong>diffs</strong> the old and new trees (reconciliation)</li>
+<li>Only the <strong>changed parts</strong> are updated in the real DOM
+This is faster than manipulating the real DOM directly.</li>
+</ol>
+<h3>Q4: Explain <code>useState</code> with an example from your project.</h3>
+<p><strong>A:</strong> <code>useState</code> declares a state variable in a function component.</p>
+<pre><code class="language-jsx">const [votes, setVotes] = useState(127);
+// votes = current value (127)
+// setVotes = function to update it (triggers re-render)
+// 127 = initial value
+</code></pre>
+<p>In <code>VoteButton.jsx</code>, I use it to track the vote count. When the user clicks, <code>setVotes(votes + 1)</code> updates the UI.</p>
+<h3>Q5: Explain <code>useEffect</code> with an example.</h3>
+<p><strong>A:</strong> <code>useEffect</code> handles side effects — things that happen after rendering.</p>
+<pre><code class="language-jsx">useEffect(() =&gt; {
+  setStartups(getStartups()); // Load data after mount
+}, []); // Empty array = runs ONCE on mount
+</code></pre>
+<p>The dependency array controls when it re-runs. <code>[id]</code> means it re-runs whenever <code>id</code> changes. Empty <code>[]</code> means run once. No array means run on every render.</p>
+<h3>Q6: What is the difference between <code>useRef</code> and <code>useState</code>?</h3>
+<p><strong>A:</strong> </p>
+<ul>
+<li><code>useState</code> — Changes cause a <strong>re-render</strong>. Used for values shown in the UI.</li>
+<li><code>useRef</code> — Changes do <strong>not</strong> cause re-renders. Used for DOM references or mutable values you want to persist across renders (like <code>hasAnimated</code>).</li>
+</ul>
+<h3>Q7: How does routing work in your app?</h3>
+<p><strong>A:</strong> I use React Router v7:</p>
+<ul>
+<li><code>&lt;BrowserRouter&gt;</code> wraps the app, enabling the History API</li>
+<li><code>&lt;Routes&gt;</code> defines the route tree</li>
+<li><code>&lt;Route path=&quot;/pitch/:id&quot;&gt;</code> maps URLs to components</li>
+<li><code>&lt;Link to=&quot;/explore&quot;&gt;</code> navigates without page reloads</li>
+<li><code>useParams()</code> extracts URL parameters (<code>:id</code>)</li>
+<li><code>useNavigate()</code> enables programmatic navigation</li>
+</ul>
+<h3>Q8: What is &quot;lifting state up&quot;?</h3>
+<p><strong>A:</strong> When two components need to share state, I move the state to their <strong>nearest common ancestor</strong>. In my Explore page, the filter state lives in <code>Explore.jsx</code> and is passed as props to <code>FilterBar.jsx</code>. This way, both the filter UI and the startup grid stay in sync.</p>
+<h3>Q9: How do you persist data without a backend?</h3>
+<p><strong>A:</strong> I use <code>localStorage</code>:</p>
+<ul>
+<li><code>localStorage.setItem(&#39;key&#39;, JSON.stringify(data))</code> — saves data</li>
+<li><code>JSON.parse(localStorage.getItem(&#39;key&#39;))</code> — reads data
+Data survives page refreshes but is browser-specific. I created a custom <code>useLocalStorage</code> hook that combines <code>useState</code> with <code>useEffect</code> to auto-sync.</li>
+</ul>
+<h3>Q10: What is a custom hook?</h3>
+<p><strong>A:</strong> A custom hook is a function starting with <code>use</code> that encapsulates reusable logic using other hooks. My <code>useLocalStorage</code> combines <code>useState</code> and <code>useEffect</code> to create a state variable that automatically persists to localStorage. My <code>useInView</code> hook uses <code>useRef</code> and <code>useEffect</code> with <code>IntersectionObserver</code> to detect when elements enter the viewport.</p>
+<h3>Q11: What is the children pattern in React?</h3>
+<p><strong>A:</strong> Components can wrap other components using <code>props.children</code>. My <code>Field</code> component in SubmitPitch does this:</p>
+<pre><code class="language-jsx">&lt;Field label=&quot;Startup Name&quot; error={errors.title}&gt;
+  &lt;input ... /&gt;   {/* This becomes props.children */}
+&lt;/Field&gt;
+</code></pre>
+<h3>Q12: How does conditional rendering work?</h3>
+<p><strong>A:</strong> Three patterns used in my project:</p>
+<ol>
+<li><code>{condition &amp;&amp; &lt;Component /&gt;}</code> — renders only if truthy</li>
+<li><code>{condition ? &lt;A /&gt; : &lt;B /&gt;}</code> — ternary for either/or</li>
+<li>Early return: <code>if (!data) return &lt;Loading /&gt;</code> — short-circuits the entire component</li>
+</ol>
+<h3>Q13: What is event bubbling and how do you handle it?</h3>
+<p><strong>A:</strong> Events propagate from child to parent (bubble up). In <code>VoteButton</code>, clicking the vote button inside a <code>&lt;Link&gt;</code> card would navigate away. I prevent this with:</p>
+<pre><code class="language-jsx">e.preventDefault();      // Stops the default action (navigation)
+e.stopPropagation();     // Stops the event from reaching parent handlers
+</code></pre>
+<h3>Q14: Why do you use <code>key</code> in list rendering?</h3>
+<p><strong>A:</strong> React uses <code>key</code> to identify which items have changed, been added, or removed. Without keys, React can&#39;t efficiently update the list. I use unique IDs:</p>
+<pre><code class="language-jsx">{startups.map(s =&gt; &lt;StartupCard key={s.id} startup={s} /&gt;)}
+</code></pre>
+<h3>Q15: What is Vite and why is it better than CRA?</h3>
+<p><strong>A:</strong> Vite is a modern build tool that uses:</p>
+<ul>
+<li><strong>Native ES modules</strong> for instant dev server startup</li>
+<li><strong>esbuild</strong> (written in Go) for 10-100x faster bundling</li>
+<li><strong>Hot Module Replacement (HMR)</strong> that updates only what changed
+CRA uses Webpack which is slower and was deprecated in 2023.</li>
+</ul>
+<h3>Q16: What is TailwindCSS?</h3>
+<p><strong>A:</strong> A utility-first CSS framework where you style elements using predefined class names:</p>
+<pre><code class="language-jsx">&lt;div className=&quot;flex items-center gap-3 p-4 rounded-xl bg-white border&quot;&gt;
+</code></pre>
+<p>Each class does one thing (<code>flex</code> = display:flex, <code>p-4</code> = padding:1rem). Benefits: faster development, smaller CSS bundle (unused classes are purged), consistent design.</p>
+<h3>Q17: How does the multi-step form work?</h3>
+<p><strong>A:</strong> I maintain a <code>step</code> state (1, 2, or 3). Each step conditionally renders its fields:</p>
+<pre><code class="language-jsx">{step === 1 &amp;&amp; &lt;div&gt;Step 1 fields&lt;/div&gt;}
+{step === 2 &amp;&amp; &lt;div&gt;Step 2 fields&lt;/div&gt;}
+{step === 3 &amp;&amp; &lt;div&gt;Step 3 fields&lt;/div&gt;}
+</code></pre>
+<p><code>nextStep()</code> validates the current step before advancing. All form data lives in a single <code>form</code> state object.</p>
+<h3>Q18: What are controlled vs uncontrolled components?</h3>
+<p><strong>A:</strong> <strong>Controlled</strong>: React state drives the input&#39;s value. This is what I use:</p>
+<pre><code class="language-jsx">&lt;input value={email} onChange={e =&gt; setEmail(e.target.value)} /&gt;
+</code></pre>
+<p><strong>Uncontrolled</strong>: The DOM itself manages the value (using <code>ref</code>). Controlled is preferred because React is the single source of truth.</p>
+<h3>Q19: What is the spread operator and how do you use it?</h3>
+<p><strong>A:</strong> <code>...</code> copies/merges objects/arrays:</p>
+<pre><code class="language-jsx">setForm(prev =&gt; ({ ...prev, [name]: value }));
+// Creates a NEW object with all previous fields + updated field
+// React requires new objects to detect changes
+</code></pre>
+<h3>Q20: What design patterns did you use?</h3>
+<p><strong>A:</strong></p>
+<ol>
+<li><strong>Component composition</strong> — Complex UIs from simple pieces</li>
+<li><strong>Container/Presentational</strong> — Pages fetch data (containers), components display it (presentational)</li>
+<li><strong>Lifting state up</strong> — Shared state in nearest common ancestor</li>
+<li><strong>Custom hooks</strong> — Reusable stateful logic</li>
+<li><strong>Conditional rendering</strong> — Show/hide based on state</li>
+<li><strong>Optimistic UI</strong> — Update immediately, sync storage after</li>
+</ol>
+<h3>Q21: How does the auth system work?</h3>
+<p><strong>A:</strong> It&#39;s a simulated auth using localStorage:</p>
+<ol>
+<li><strong>Signup</strong> saves user to <code>uv_all_users</code> and sets <code>uv_auth</code> with <code>{ loggedIn: true }</code></li>
+<li><strong>Login</strong> checks <code>uv_all_users</code> for matching email/password</li>
+<li><strong>Navbar</strong> reads <code>uv_auth</code> on every route change to show/hide auth buttons</li>
+<li><strong>Logout</strong> removes <code>uv_auth</code> from localStorage</li>
+</ol>
+<h3>Q22: What animations did you implement?</h3>
+<p><strong>A:</strong> 15+ CSS animations including:</p>
+<ul>
+<li><code>fade-up</code> — elements slide up and fade in</li>
+<li><code>float</code> — background blobs gently bobbing</li>
+<li><code>pulse-glow</code> — pulsing box-shadow</li>
+<li><code>confetti</code> — success celebration particles</li>
+<li><code>vote-burst</code> — &quot;+1&quot; particles on upvote</li>
+<li><code>heart-pop</code> — bouncy save animation</li>
+<li><code>shimmer</code> — loading skeleton effect</li>
+</ul>
+<h3>Q23: How do you handle responsive design?</h3>
+<p><strong>A:</strong> Using Tailwind&#39;s responsive prefixes:</p>
+<ul>
+<li><code>sm:</code> (640px+), <code>md:</code> (768px+), <code>lg:</code> (1024px+)</li>
+<li><code>grid-cols-1 md:grid-cols-2 lg:grid-cols-3</code> — 1 column on mobile, 2 on tablet, 3 on desktop</li>
+<li><code>hidden md:flex</code> — hide on mobile, show on desktop</li>
+<li>The Navbar has a hamburger menu for mobile</li>
+</ul>
+<h3>Q24: What is the IntersectionObserver?</h3>
+<p><strong>A:</strong> A browser API that watches when elements enter or leave the viewport. I use it for:</p>
+<ol>
+<li><strong>Scroll-triggered animations</strong> — Cards fade in when scrolled to</li>
+<li><strong>Animated counters</strong> — Numbers count up only when visible
+This is more performant than <code>scroll</code> event listeners.</li>
+</ol>
+<h3>Q25: What is the difference between <code>props</code> and <code>state</code>?</h3>
+<p><strong>A:</strong></p>
+<ul>
+<li><strong>Props</strong>: Data passed FROM parent TO child. Read-only in the child.</li>
+<li><strong>State</strong>: Data owned BY the component. Can be changed with setter functions.
+Props flow down, state is local.</li>
+</ul>
+<h3>Q26: What happens when <code>setState</code> is called?</h3>
+<p><strong>A:</strong> React:</p>
+<ol>
+<li>Schedules a re-render (batched for performance)</li>
+<li>Creates a new Virtual DOM tree</li>
+<li>Diffs it against the previous one</li>
+<li>Updates only the changed DOM elements</li>
+</ol>
+<h3>Q27: Why use <code>export default function</code> vs <code>export function</code>?</h3>
+<p><strong>A:</strong> </p>
+<ul>
+<li><code>export default</code> — Main export. Imported as: <code>import App from &#39;./App&#39;</code></li>
+<li><code>export</code> (named) — Secondary export. Imported as: <code>import { getStartups } from &#39;./data&#39;</code>
+In my project, pages/components use <code>default</code>, while data functions use named exports.</li>
+</ul>
+<h3>Q28: What is <code>e.preventDefault()</code> and when do you use it?</h3>
+<p><strong>A:</strong> It prevents the browser&#39;s default behavior:</p>
+<ul>
+<li>On <code>&lt;form onSubmit&gt;</code>: prevents page reload</li>
+<li>On <code>&lt;Link&gt;</code> inside buttons: prevents navigation</li>
+<li>On <code>&lt;input onKeyDown&gt;</code> for Enter: prevents form submission</li>
+</ul>
+<h3>Q29: How did you implement the search?</h3>
+<p><strong>A:</strong> Client-side filtering in <code>Explore.jsx</code>:</p>
+<pre><code class="language-jsx">const matchesSearch = !searchQuery ||
+  s.title.toLowerCase().includes(query) ||
+  s.tagline.toLowerCase().includes(query) ||
+  s.tags.some(t =&gt; t.toLowerCase().includes(query));
+</code></pre>
+<p>This searches across title, tagline, and tags simultaneously. It&#39;s case-insensitive.</p>
+<h3>Q30: What would you change if you had more time?</h3>
+<p><strong>A:</strong></p>
+<ol>
+<li>Add a real backend (Node.js + MongoDB or Firebase)</li>
+<li>Implement proper JWT authentication</li>
+<li>Add real-time features with WebSockets</li>
+<li>Write comprehensive tests</li>
+<li>Add dark mode and PWA support</li>
+<li>Implement proper form validation with Zod</li>
+<li>Add analytics charts to the dashboard</li>
+</ol>
+<hr>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Key takeaway for viva</strong>: This project demonstrates a complete understanding of React fundamentals — components, props, state, effects, hooks, routing, forms, conditional rendering, list rendering, event handling, and composition patterns. The main limitation is the lack of a real backend, which is the natural next step.</p>
+</blockquote>
+<hr>
+<p><em>Generated for viva preparation — covers every file in <code>src/components/</code> and <code>src/pages/</code></em></p>
+
+  <hr>
+  <p style="text-align:center;color:#9CA3AF;font-size:11px;margin-top:40px;">UniVenture Viva Guide &bull; Generated for exam preparation</p>
+</body>
+</html>
